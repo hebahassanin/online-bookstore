@@ -1,0 +1,155 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --main-blue: rgb(98, 81, 221);
+    --light-orange: #ef6b4a;
+    --purpule-color: #393280;
+    --bold-orange: #ED553B;
+    --bold-blue: #173F5F;
+    
+}
+.blueBold-text{
+  color:var(--bold-blue);
+}
+
+.blue-text{
+    color: var(--main-blue);
+}
+.blue-bg{
+    background-color: var(--main-blue);
+}
+.orangeLight-text{
+    color:var(--light-orange);
+}
+.orangeLight-bg{
+    background-color: var(--light-orange)!important;
+}
+.orangeBold-text{
+    color:var(--bold-orange);
+   
+
+}
+.orangeBold-bg{
+    background-color: var(--bold-orange)!important;
+
+}
+.purpule-bg{
+    background-color: var(--purpule-color)!important;
+}
+.purpule-color{
+    color: var(--purpule-color)!important;
+}
+.active{
+    color:  var(--light-orange);
+}
+
+/* CategorySlider */
+.line{
+    position: relative;
+    
+}
+.line::before{
+    content: "";
+    position: absolute;
+    width: 50px;
+    height:3px;
+    left: 0;
+    top: 16px;
+
+    background-color: #ef6b4a;
+  }
+
+/* slider2 in home */
+.categorySwiper {
+    background: transparent !important;
+  }
+  
+  .category-next::after,
+  .category-prev::after {
+    display: none;
+  }
+  .swiper-slide.slider2{
+    cursor: pointer;
+  }
+  .swiper-slide.slider2 img{
+    height: 200px;
+    width:100%;
+  }
+  .swiper-slide.slider2:hover{
+    background-color: rgb(243, 237, 237);
+
+  }
+  .arrow:hover{
+    color:var(--bold-orange);
+
+  }
+  
+  /* slider3 */
+  .BooksSlider{
+    position: relative;
+    padding-bottom: 50px!important;
+    margin-bottom: 50px;
+  }
+  .BooksSlider .swiper-slide.slider3{
+    width: 250px;
+    height: auto;
+  }
+  .BooksSlider .swiper-slide.slider3 img{
+    height: 50%;
+    width: 100%;
+  }
+  .BooksSlider .swiper-pagination-bullets{
+    position: absolute;
+    bottom: -2px!important;
+    left: 50%!important;
+    transform: translate(-50%);
+    width: auto;
+    text-align: center;
+    z-index: 20;
+  } 
+  .BooksSlider .swiper-pagination-bullet{
+    background: #a49d9d;
+    width: 14px;
+    height: 14px;
+    opacity: 0.6;
+  }
+  .BooksSlider .swiper-pagination-bullet-active{
+    background: #ED553B;
+    opacity: 1;
+    width: 18px;
+    height: 18px;
+  }
+  .add-to-cart-btn {
+    position: absolute!important;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: fit-content;
+    padding: 10px!important;
+    transform: translate(-50%, -50%);
+    background-color: #ED553B !important; /* برتقالي */
+    font-size: 25px !important;
+    font-weight: 700!important;
+    color: white !important;
+    opacity: 0;
+    transition: opacity 0.5s ease !important;
+    z-index:5;
+  }
+  
+  .image-box:hover .add-to-cart-btn {
+    opacity: 1;
+  }
+  /* Books */
+  .book-image{
+  transition: transform 0.5s ease;
+  }
+  .book-image:hover{
+    transform: scale(1.1);
+  }
+
+
+  
