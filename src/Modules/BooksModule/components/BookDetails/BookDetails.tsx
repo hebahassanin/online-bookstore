@@ -1,12 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+// import { useLocation} from "react-router-dom"
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import { Box, Divider, Typography } from '@mui/material';
 import { FadeLoader } from "react-spinners";
 import Button from '@mui/material/Button';
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../../Redux/store";
+import { addItemToCart } from "../../../../Redux/cartSlice";
+import { toast } from "react-toastify";
 
 
 interface Book{
@@ -15,16 +20,25 @@ interface Book{
   author: string;
   description: string;
   price: number;
-  imageUrl? : string;
+  image? : string;
 }
 
 export default function BookDetails() {
   const {bookId} = useParams();
-  const location = useLocation();
-  const {image} = location.state || {};
+  // const location = useLocation();
+  // const {image} = location.state || {};
   const[ book, setBook] = useState<Book |null>(null);
   const token = localStorage.getItem("accessToken");
   const navigate =useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleAddToCart=(book:Book)=>{
+    dispatch(addItemToCart({bookId:String(bookId), quantity:1}));
+    toast.success(`${book.name} added to cart!`,{
+      position:"top-right",
+      autoClose:2000
+    });
+  }
 
   const getBookDatails = async()=>{
     try {
@@ -58,7 +72,7 @@ export default function BookDetails() {
       <Card sx={{ width:"50%", bgcolor:"transparent" }} elevation={5}>
         <CardMedia 
           component="img" 
-          image={image} 
+          image={book.image} 
           alt={book.description} 
           sx={{ width: "100%",height:"500px", objectFit:"contain", borderRadius:"10px" }}
         />   
@@ -86,7 +100,11 @@ export default function BookDetails() {
               $ {book.price}
           </Typography>
           <Box sx={{marginY:"20px"}}>
-          <Button  variant="contained" className="orangeBold-bg" sx={{padding:"10px 20px",marginRight:"4rem"}}>Add To Cart</Button>
+          <Button  variant="contained" className="orangeBold-bg" 
+          onClick={()=> handleAddToCart(book)} 
+          sx={{padding:"10px 20px",marginRight:"4rem"}}>
+            Add To Cart
+          </Button>
           <Button  variant="outlined" className="purpule-color"
           sx={{padding:"10px 20px",borderColor:"#393280"}} onClick={()=> navigate("/dashboard/books")}>
             Back To Books</Button>

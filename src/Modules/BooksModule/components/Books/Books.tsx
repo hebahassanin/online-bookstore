@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material'
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+// import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -23,6 +23,7 @@ import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../../../Redux/store';
 import { addItemToCart } from '../../../../Redux/cartSlice';
+import { toast } from 'react-toastify';
 
 interface Book{
   _id: number;
@@ -30,7 +31,7 @@ interface Book{
   author: string;
   description: string;
   price: number;
-  imageUrl? : string;
+  image? : string;
 }
 export default function Books() {
   const [books, setBooks]= useState<Book[]>([]);
@@ -40,12 +41,20 @@ export default function Books() {
          bookImage5,bookImage6, bookImage7,bookImage8];
 
   
-  const dispatch = useDispatch<AppDispatch>();       
+  const dispatch = useDispatch<AppDispatch>();   
+  
+  const handleAddToCart=(book:Book)=>{
+    dispatch(addItemToCart({bookId:String(book._id), quantity:1}));
+    toast.success(`${book.name} added to cart!`,{
+      position:"top-right",
+      autoClose:2000
+    });
+  }
 
     const getBooks=async()=>{
         try {
           setLoading(true);
-            const response = await axios.get("https://upskilling-egypt.com:3007/api/book");
+            const response = await axios.get("https://upskilling-egypt.com:3007/api/book?limit=16");
             console.log(response?.data?.data);
             setBooks(response?.data?.data);
             
@@ -55,6 +64,8 @@ export default function Books() {
           setLoading(false);
         }
     }
+
+
 
     useEffect(()=>{
         getBooks();
@@ -76,13 +87,14 @@ export default function Books() {
               <Box className="image-box" sx={{position:"relative", width:"100%"}}>
                   <CardMedia className='book-image'
                     component="img" 
-                    image={img} 
+                    image={book.image} 
                     alt={book.description} 
                     sx={{ width: "auto",maxWidth:"70%" ,margin:"0 auto",height:"300px", objectFit:"contain", borderRadius:"10px" }}
                   />
                   <Button variant="contained" className='add-to-cart-btn'
-                  onClick={()=> dispatch(addItemToCart({bookId:String(book._id), quantity:1}))}
-                  >Add to cart</Button>
+                    onClick={()=>handleAddToCart(book)}>
+                      Add to cart
+                  </Button>
               </Box>
                 
               </Card>
@@ -116,3 +128,5 @@ export default function Books() {
     </>
   )
 }
+
+// ()=> dispatch(addItemToCart({bookId:String(book._id), quantity:1}))

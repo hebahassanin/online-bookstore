@@ -40,7 +40,9 @@
 .purpule-bg{
     background-color: var(--purpule-color)!important;
 }
-.purpule-color{
+.purpule-color,
+.purpule-color th,
+.purpule-color td{
     color: var(--purpule-color)!important;
 }
 .active{
@@ -149,6 +151,12 @@
   }
   .book-image:hover{
     transform: scale(1.1);
+  }
+  .cart-bg,
+  .profile-bg{
+    /* background: linear-gradient(to right,#FFE5E5,#F5FFFE); */
+   /* background:  linear-gradient(78.43deg,#e5c9c9 -27.34%,#fcecec 89.92%); */
+   background: linear-gradient(to right,#e7c7c7,#bde7e4);
   }
 
 

@@ -4,17 +4,17 @@ import axios from "axios";
 
 // const API_URL = "https://upskilling-egypt.com:3007/api/basket/item";
 
-// 🟢 شكل الـ Item
+// every Item in cart
 interface CartItem {
   _id: string;
-  book: string |{
+  book: null |{
     _id: string;
     price: number;
   } ;
   quantity: number;
 }
 
-// 🟢 شكل الـ Cart
+// Cart
 interface Cart {
   _id: string;
   customer: string;
@@ -22,7 +22,7 @@ interface Cart {
   total: number;
 }
 
-// 🟢 شكل الـ State
+// State
 interface CartState {
   cart: Cart | null;
   loading: boolean;
@@ -37,15 +37,15 @@ const initialState: CartState = {
 
 export const addItemToCart = createAsyncThunk<
   Cart, // بيرجع cart كامل
-  { bookId: string; quantity: number }, 
-  { rejectValue: string }
->("cart/addItemToCart", async ({ bookId, quantity }, thunkAPI) => {
+  { bookId: string; quantity: number}, 
+  { rejectValue: string }>
+  ("cart/addItemToCart", async ({ bookId, quantity}, thunkAPI) => {
   try {
     const token = localStorage.getItem("accessToken");
 
     const res = await axios.post(
       "https://upskilling-egypt.com:3007/api/basket/item",
-      { book:bookId, quantity }, // ✅ السيرفر بيقرأهم كده
+      { book:bookId, quantity }, //  السيرفر بيقرأهم كده
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -53,7 +53,7 @@ export const addItemToCart = createAsyncThunk<
       }
     );
     
-    // ✅ الـ response بيكون { data, message, ... }
+    //  الـ response بيكون { data, message, ... }
     return res.data.data as Cart; 
   } catch (err: any) {
     return thunkAPI.rejectWithValue(err?.message ?? "Failed to add item");
@@ -69,12 +69,11 @@ export const fetchCartItems = createAsyncThunk <Cart, void, { rejectValue: strin
     const res = await axios.get("https://upskilling-egypt.com:3007/api/basket",
     {
       headers:{
-        Authorization: `Bearer ${token}`,
-        "Cache-Control":"no-cache",
+        Authorization: `Bearer ${token}`
       },
     });
   
-  return res.data.data as Cart;
+  return res.data as Cart;
     
   } catch (err:any) {
     return thunkAPI.rejectWithValue(err?.message?? "Failed to fetch cart")
@@ -82,6 +81,57 @@ export const fetchCartItems = createAsyncThunk <Cart, void, { rejectValue: strin
   }
 });
 
+// Update Cart
+export const updateCart = createAsyncThunk<Cart,{ bookId: string; quantity: number},
+{rejectValue:string}>("cart/updateCart", async ({ bookId, quantity},thunkAPI) =>{
+  try {
+    const token = localStorage.getItem("accessToken");
+    const res= await axios.put(`https://upskilling-egypt.com:3007/api/basket/${bookId}`,
+    {
+      items:[
+        {
+          book: bookId,
+          quantity: quantity.toString(),
+        }
+      ]
+    },
+    {
+      headers:{
+        Authorization: `Bearer ${token}`,
+      }
+    }
+    );
+    console.log(res.data?.data);
+    
+    return res.data?.data as Cart;
+    
+  } catch (err:any) {
+    return thunkAPI.rejectWithValue(err?.message?? "Failed to update cart")
+  }
+})
+
+
+export const deleteCartItem = createAsyncThunk<
+  Cart,
+  string,
+  { rejectValue: string }
+  >("cart/deleteCartItem", async (itemId, thunkAPI) => {
+  try {
+    const token = localStorage.getItem("accessToken");
+    const res = await axios.delete(
+      `https://upskilling-egypt.com:3007/api/basket/item/${itemId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+  );
+
+  return res.data?.data ?? res.data;
+} catch (err: any) {
+  return thunkAPI.rejectWithValue(err?.message ?? "Failed to delete item");
+}
+});
 // Slice
 const cartSlice = createSlice({
   name: "cart",
@@ -112,6 +162,34 @@ const cartSlice = createSlice({
         state.cart = action.payload;
       })
       .addCase(fetchCartItems.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload ?? "Error occurred";
+      })
+
+      // update Cart
+      .addCase(updateCart.pending,(state)=>{
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateCart.fulfilled,(state,action: PayloadAction<Cart>)=>{
+        state.loading = false;
+        state.cart = action.payload;
+      })
+      .addCase(updateCart.rejected, (state, action)=>{
+        state.loading = false;
+        state.error = action.payload ?? "Error occurred";
+      })
+      
+      // Delete Cart item
+      .addCase(deleteCartItem.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteCartItem.fulfilled, (state, action: PayloadAction<Cart>) => {
+        state.loading = false;
+        state.cart = action.payload;
+      })
+      .addCase(deleteCartItem.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload ?? "Error occurred";
       })

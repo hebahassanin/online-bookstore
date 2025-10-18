@@ -8,6 +8,8 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 
+import { useDispatch } from 'react-redux';
+
 // import Images
 import bookImage1 from '../../../../assets/images/books/book1.png'; 
 import bookImage2 from '../../../../assets/images/books/book2.png';
@@ -30,16 +32,33 @@ import 'swiper/css/pagination';
 
 // import required modules
 import { EffectCoverflow, Autoplay,Pagination } from 'swiper/modules';
+import type { AppDispatch } from '../../../../Redux/store';
+import { addItemToCart } from '../../../../Redux/cartSlice';
+import { toast } from 'react-toastify';
 
 interface Book{
   _id: number;
+  name: string;
+  author: string;
   description: string;
+  price:number;
+  image:string;
 }
 
 export default function BooksSlider() {
     const [books, setBooks]= useState<Book[]>([]);
     const Images =[bookImage1, bookImage2, bookImage3,bookImage4,
          bookImage5,bookImage6, bookImage7,bookImage8];
+
+    const dispatch = useDispatch<AppDispatch>(); 
+    
+    const handleAddToCart=(book:Book)=>{
+      dispatch(addItemToCart({bookId:String(book._id), quantity:1}));
+      toast.success(`${book.name} added to cart!`,{
+        position:"top-right",
+        autoClose:2000
+      });
+    }
 
     const getBooks=async()=>{
         try {
@@ -99,11 +118,14 @@ export default function BooksSlider() {
                 <Box className="image-box" sx={{position:"relative", width:"100%"}}>
               <CardMedia 
                 component="img" 
-                image={img} 
+                image={book.image} 
                 alt={book.description} 
                 sx={{ width:"100%", height:"80%", objectFit:"cover", borderRadius:"10px" }}
               />
-              <Button variant="contained" className='add-to-cart-btn'>Add to cart</Button>
+              <Button variant="contained" className='add-to-cart-btn'
+               onClick={()=> handleAddToCart(book)}>
+                Add to cart
+              </Button>
               </Box>
 
               {/* <CardContent>

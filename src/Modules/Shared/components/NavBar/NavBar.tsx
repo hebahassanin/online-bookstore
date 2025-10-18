@@ -19,8 +19,10 @@ import { Menu as MenuIcon} from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { useSelector } from "react-redux";
 import type { RootState} from "../../../../Redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch } from "../../../../Redux/store";
+import { logout } from "../../../../Redux/authSlice";
 
 
 
@@ -30,6 +32,13 @@ export default function NavBar() {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
  const location= useLocation();
+
+ // logout
+ const dispatch= useDispatch<AppDispatch>();
+ const handleLogout =()=>{
+  dispatch(logout());
+  navigate("/");
+ }
 
   const toggleDrawer = (state: boolean) => () => {
     setOpen(state);
@@ -52,7 +61,6 @@ export default function NavBar() {
   const totalQuantity = useSelector((state: RootState) => {
     return state.cart.cart?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
   });
-  
 
   return (
     <>
@@ -115,8 +123,7 @@ export default function NavBar() {
             {/* Menu button for small screens */}
             <IconButton
               sx={{ color: "#393280",fontSize:"30px", display: { xs: "block", md: "none" } }}
-              onClick={toggleDrawer(true)}
-            >
+              onClick={toggleDrawer(true)}>
               <MenuIcon />
             </IconButton>
 
@@ -126,8 +133,8 @@ export default function NavBar() {
                 <ShoppingCartOutlinedIcon sx={{fontSize:"30px",color: "#393280"}}/>
               </Badge>
             </IconButton>
-            <IconButton sx={{ color: "#393280", }}>
-              < LogoutIcon sx={{fontSize:"30px"}}/>
+            <IconButton onClick={handleLogout} sx={{ color: "#393280", }}>
+              <LogoutIcon sx={{fontSize:"30px"}}/>
             </IconButton>
           </Box>
         </Toolbar>
@@ -139,9 +146,9 @@ export default function NavBar() {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+        <MenuItem onClick={()=> navigate('/dashboard/profile')}>Profile</MenuItem>
         <MenuItem onClick={()=> navigate('/change-password')} >Change Password</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
 
       {/* Drawer for small screens */}

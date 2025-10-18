@@ -16,6 +16,7 @@ import { ToastContainer } from 'react-toastify'
 import Categories from './Modules/HomeModule/components/Categories/Categories'
 import Books from './Modules/BooksModule/components/Books/Books'
 import BookDetails from './Modules/BooksModule/components/BookDetails/BookDetails'
+import Profile from './Modules/HomeModule/components/Profile/Profile'
 
 function App() {
   const routes= createBrowserRouter([
@@ -42,6 +43,7 @@ function App() {
         {path:"categories", element:<Categories/>},
         {path:'cart', element:<Cart/>},
         {path:'confirmation', element:<OrderConfirmation/>},
+        {path:'profile', element:<Profile/>},
         {path:"books", 
         children:[
           {index:true, element:<Books/>},

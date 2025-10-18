@@ -7,12 +7,15 @@ import Grid  from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials } from "../../../../Redux/authSlice";
 
 
 
 
 export default function Login() {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
 
   interface FormInputs {
     email: string;
@@ -28,11 +31,30 @@ export default function Login() {
       try {
       let response = await axios.post("https://upskilling-egypt.com:3007/api/auth/login", data);
       localStorage.setItem("accessToken", response?.data?.data?.accessToken);
-      toast.success("logged success, welcome to book store");
+      console.log(response?.data?.data?.accessToken);
+
+      const userData = response?.data?.data?.profile;
+      const token = response?.data?.data?.accessToken;
+
+      // store userdata in redux
+      dispatch(setCredentials({
+        user:{
+          id: userData._id,
+          first_name: userData.first_name,
+          last_name: userData.last_name,
+          email: userData.email,
+          status: userData.status,
+          role: userData.role
+        },
+        token: token
+      }));
+
+      
+      toast.success(`logged success, welcome ${userData.first_name}`,{ autoClose: 2000});
       navigate("/dashboard");
 
         }catch (error) {
-      toast.error("logged failed");
+      toast.error("logged failed. please check your email or password");
 
     }
   }
