@@ -82,11 +82,12 @@ export const fetchCartItems = createAsyncThunk <Cart, void, { rejectValue: strin
 });
 
 // Update Cart
-export const updateCart = createAsyncThunk<Cart,{ bookId: string; quantity: number},
-{rejectValue:string}>("cart/updateCart", async ({ bookId, quantity},thunkAPI) =>{
+export const updateCart = createAsyncThunk<Cart,
+{cartId:string; bookId: string; quantity: number},{rejectValue:string}>
+("cart/updateCart", async ({cartId, bookId, quantity},thunkAPI) =>{
   try {
     const token = localStorage.getItem("accessToken");
-    const res= await axios.put(`https://upskilling-egypt.com:3007/api/basket/${bookId}`,
+    const res= await axios.put(`https://upskilling-egypt.com:3007/api/basket/${cartId}`,
     {
       items:[
         {
@@ -175,6 +176,9 @@ const cartSlice = createSlice({
         state.loading = false;
         state.cart = action.payload;
       })
+
+     
+
       .addCase(updateCart.rejected, (state, action)=>{
         state.loading = false;
         state.error = action.payload ?? "Error occurred";

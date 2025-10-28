@@ -17,7 +17,11 @@ export interface AuthState{
 }
 
 const initialState:AuthState={
-    user: null,
+  
+  /* chech if there is user save in localStorage,if true return user after convert to object 
+  but if false it will null.
+  - chech also token*/
+    user: localStorage.getItem("user")? JSON.parse(localStorage.getItem("user")!) : null,
     token: localStorage.getItem("accessToken") || null,
     loading: false,
     error: null
@@ -35,7 +39,10 @@ const authSlice = createSlice({
         ) => {
             state.user = action.payload.user;
             state.token = action.payload.token;
+
+            // I save acesstoken and userData in localStorage to avoid lose data when refresh.
             localStorage.setItem("accessToken", action.payload.token);
+            localStorage.setItem("user", JSON.stringify(action.payload.user));
         },
 
          // logout
@@ -44,6 +51,7 @@ const authSlice = createSlice({
         state.token = null;
         state.error = null;
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
       },
 
       setLoading: (state, action: PayloadAction<boolean>) => {

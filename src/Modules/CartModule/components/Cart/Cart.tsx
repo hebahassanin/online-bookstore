@@ -21,6 +21,7 @@ import { FadeLoader } from "react-spinners";
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
 import { toast } from 'react-toastify';
+import Payment from '../../../OrderModule/components/Payment';
 
 interface Book{
   _id: number;
@@ -45,9 +46,18 @@ export default function Cart() {
   const totalCost = total + tax;
 
   const handleIncrease= async (bookId:string, currentQty:number)=>{
+
+    if(!cart?._id){
+      toast.error("Cart ID not found");
+      return;
+    }
     try {
-      await  dispatch(updateCart({bookId, quantity: currentQty+1})).unwrap();
-      toast.success("the book increased successfully")
+      await  dispatch(updateCart({cartId:cart._id,bookId, quantity: currentQty+1})).unwrap();
+      toast.success("Book quantity increased successfully");
+
+      setTimeout(()=>{
+        dispatch(fetchCartItems());
+      }, 300);
       
     } catch (error) {
       toast.error("happened error during Increase quantity");
@@ -59,16 +69,21 @@ export default function Cart() {
       toast.info("quantity cann't less than 1");
       return;
     }
+    if(!cart?._id){
+      toast.error("Cart ID not found");
+      return;
+    }
     try {
-      await dispatch(updateCart({bookId ,quantity:currentQty-1})).unwrap();
-      toast.success("the book decreased successfully");
+      await dispatch(updateCart({cartId:cart._id,bookId ,quantity:currentQty-1})).unwrap();
+      toast.success("Book quantity decreased successfully");
+      await dispatch(fetchCartItems());
+     
       
     } catch (error) {
       toast.error("happened error during Decrease quantity") 
     }
 
   };
-
 
   
   // Delete item
@@ -144,7 +159,15 @@ export default function Cart() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {cart?.items.map((item, index) => {
+
+              {cart?.items.length ===0 ?(
+                <TableRow>
+                  <TableCell>
+                    <Typography variant='h6' sx={{color:"#000"}}>your cart is empty.</Typography>
+                  </TableCell>
+                </TableRow>
+              ):(
+              cart?.items.map((item, index) => {
                 const bookDetails =
                 books.find((b)=>b._id === item.book);
                 
@@ -202,8 +225,8 @@ export default function Cart() {
                 </TableCell>
                  
                 </TableRow>
-                )
-              }
+                );
+              })
               
               )}
             </TableBody>
@@ -239,6 +262,8 @@ export default function Cart() {
         </TableContainer>
       </Grid>
     </Grid>
+
+    <Payment/>
   </>
 
 

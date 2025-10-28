@@ -17,7 +17,11 @@ import Categories from './Modules/HomeModule/components/Categories/Categories'
 import Books from './Modules/BooksModule/components/Books/Books'
 import BookDetails from './Modules/BooksModule/components/BookDetails/BookDetails'
 import Profile from './Modules/HomeModule/components/Profile/Profile'
+import ProtectedRoute from './Routes/ProtectedRoute/ProtectedRoute'
+import {loadStripe} from '@stripe/stripe-js';
+import {Elements} from '@stripe/react-stripe-js';
 
+const stripe = loadStripe('pk_test_51SLt9VK3dPHluhJWxQX05FsZklD7RPhYpgZMQxW6rAKkuEa979Rxn2xGo06efZ2C8iMePRF6KLN8iJ0QCioDO6Ff00ga2jnQ8b')
 function App() {
   const routes= createBrowserRouter([
     {
@@ -35,7 +39,7 @@ function App() {
     },
     {
       path:'dashboard',
-      element:<MasterLayout/>,
+      element:<ProtectedRoute><MasterLayout/></ProtectedRoute>,
       errorElement:<NotFound/>,
       children:[
         {index:true, element:<Home/>},
@@ -57,7 +61,11 @@ function App() {
   return (
     <>
     <ToastContainer/>
+
+    <Elements stripe={stripe}>
     <RouterProvider router={routes}></RouterProvider>
+    </Elements>
+    
       
     </>
   )
