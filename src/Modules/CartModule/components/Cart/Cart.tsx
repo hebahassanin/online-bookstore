@@ -24,7 +24,7 @@ import { toast } from 'react-toastify';
 import Payment from '../../../OrderModule/components/Payment/Payment';
 
 interface Book{
-  _id: number;
+  _id: string;
   name: string;
   author: string;
   description: string;
@@ -216,9 +216,9 @@ export default function Cart() {
                     <img 
                       src={bookDetails?.image} 
                       alt={bookDetails?.name} 
-                      style={{ width: "60px", height: "80px", objectFit: "cover", borderRadius: "4px" }}
+                      style={{ width: "80px", height: "100px", objectFit: "cover", borderRadius: "4px" }}
                     />
-                    <Typography variant="body1" sx={{ fontSize: "15px", fontWeight: 500 }}>
+                    <Typography variant="body1" sx={{ fontSize: "18px", fontWeight: 500 }}>
                       {bookDetails?.name}
                     </Typography>
                   </Box>
@@ -227,13 +227,13 @@ export default function Cart() {
                     <Box display="flex" alignItems="center" justifyContent="center">
                     <Button variant="contained" size="small" 
                     sx={{minWidth:"32px",height:"32px",borderRadius:"4px",fontWeight:"bold",mr:1}}
-                    className='purpule-bg' onClick={()=> handleIncrease(bookDetails?._id,item.quantity)}>
+                    className='purpule-bg' onClick={()=> handleIncrease(String(bookDetails?._id),item.quantity)}>
                       +
                     </Button>
                      <Typography component="span" sx={{minWidth:"24px", textAlign:"center"}}> {item.quantity}</Typography>
                     <Button variant="contained" size="small" 
                     sx={{minWidth:"32px",height:"32px",borderRadius:"4px",fontWeight:"bold",ml:1}}
-                    onClick={()=> handleDecrease(bookDetails?._id, item.quantity)}className='purpule-bg'>
+                    onClick={()=> handleDecrease(String(bookDetails?._id), item.quantity)}className='purpule-bg'>
                       -
                     </Button>
 

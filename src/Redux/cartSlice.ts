@@ -10,7 +10,7 @@ interface CartItem {
   book: null |{
     _id: string;
     price: number;
-  } ;
+  } |string ;
   quantity: number;
 }
 
@@ -92,7 +92,7 @@ export const updateCart = createAsyncThunk<Cart,
       items:[
         {
           book: bookId,
-          quantity: quantity.toString()
+          quantity
         },
         ...items,
       ]
