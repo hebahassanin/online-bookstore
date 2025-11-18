@@ -21,7 +21,7 @@ import { FadeLoader } from "react-spinners";
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
 import { toast } from 'react-toastify';
-import Payment from '../../../OrderModule/components/Payment';
+import Payment from '../../../OrderModule/components/Payment/Payment';
 
 interface Book{
   _id: number;
@@ -45,6 +45,7 @@ export default function Cart() {
   const tax = total * 0.1;
   const totalCost = total + tax;
 
+  // this is a function to Book quantity Increased
   const handleIncrease= async (bookId:string, currentQty:number)=>{
 
     if(!cart?._id){
@@ -52,18 +53,32 @@ export default function Cart() {
       return;
     }
     try {
-      await  dispatch(updateCart({cartId:cart._id,bookId, quantity: currentQty+1})).unwrap();
+      const response = await dispatch(fetchCartItems());
+
+      // ignore book that i will update, means i will retrieve items without item that i updated.
+      const otherItems =response?.payload?.items.filter((item:any)=>
+      item.book !== bookId);
+
+      const formattedItems = otherItems.map((item:any)=>({
+        book: item.book, quantity: item.quantity,
+      }))
+
+      console.log(formattedItems);
+
+
+      await  dispatch(updateCart({cartId:cart._id,bookId, quantity: currentQty+1,
+      items: formattedItems})).unwrap();
       toast.success("Book quantity increased successfully");
 
-      setTimeout(()=>{
+      
         dispatch(fetchCartItems());
-      }, 300);
       
     } catch (error) {
       toast.error("happened error during Increase quantity");
     }
   };
 
+  // this is a function to Book quantity Decreased
   const handleDecrease= async (bookId:string, currentQty:number)=>{
     if(currentQty <= 1){
       toast.info("quantity cann't less than 1");
@@ -74,8 +89,19 @@ export default function Cart() {
       return;
     }
     try {
-      await dispatch(updateCart({cartId:cart._id,bookId ,quantity:currentQty-1})).unwrap();
+
+      const response =await dispatch(fetchCartItems());
+      const otherItems =response?.payload?.items.filter((item:any)=>
+      item.book !== bookId);
+
+      const formattedItems = otherItems.map((item:any)=>
+      ({book: item.book, quantity: item.quantity,}))
+
+      await dispatch(updateCart({cartId:cart._id,bookId ,quantity:currentQty-1,
+      items: formattedItems})).unwrap();
+
       toast.success("Book quantity decreased successfully");
+
       await dispatch(fetchCartItems());
      
       
@@ -130,7 +156,7 @@ export default function Cart() {
   return (
     <>
     <Stack display="flex" alignItems="center" justifyContent="center" 
-      className='purpule-color cart-bg' sx={{paddingY:"25px"}}>
+      className='purpule-color cart-bg' sx={{paddingY:"25px", marginTop:{xs:"30px",sm:0}}}>
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" className='purpule-color' sx={{fontWeight:500, fontSize:"20px"}}
         color="inherit" href="/dashboard">
@@ -140,10 +166,10 @@ export default function Cart() {
       </Breadcrumbs>
     </Stack>
 
-    <Grid container spacing={4} sx={{margin:"40px 60px",}}>
-      <Grid size={7}>
+    <Grid container spacing={4} sx={{margin:"40px 60px"}}>
+      <Grid size={{xs:12, md:7, lg:7}}>
         <TableContainer component={Box} className="purpule-color cart-bg" 
-          sx={{marginTop:3,minWidth: 400, marginLeft:"auto",padding:"20px"}}>
+          sx={{marginTop:3,minWidth: 400, marginLeft:"auto",padding:"20px", borderRadius:2}}>
           <Typography variant='h5' sx={{fontWeight:"bold", marginBottom:"10px"}}>
             Cart Detailes
           </Typography>
@@ -234,9 +260,9 @@ export default function Cart() {
         </TableContainer>
       </Grid>
 
-      <Grid size={5}>
+      <Grid size={{xs:12, md:5, lg:5}}>
         <TableContainer component={Box} className="purpule-color cart-bg" 
-        sx={{marginTop:3,maxWidth: 400, marginLeft:"auto",padding:"20px"}}>
+        sx={{marginTop:3,maxWidth: 400, marginLeft:{md:"auto"},padding:"20px",borderRadius:2}}>
           <Typography variant='h5' sx={{fontWeight:"bold", marginBottom:"20px"}}>
             Cart Total Cost
           </Typography>

@@ -33,6 +33,8 @@ export default function NavBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
  const location= useLocation();
 
+ const {user}= useSelector((state:RootState)=> state.auth);
+
  // logout
  const dispatch= useDispatch<AppDispatch>();
  const handleLogout =()=>{
@@ -79,7 +81,12 @@ export default function NavBar() {
               src="/static/images/avatar/1.jpg"
               sx={{ width: 32, height: 32 }}
             /> */}
-            <Avatar src="/broken-image.jpg" />
+            {/* <Avatar src="/broken-image.jpg" /> */}
+
+
+            <Avatar className="purpule-bg" sx={{width:50, height:50,fontSize:"30px"}}>
+                {user?.first_name[0].toUpperCase()}
+            </Avatar>
           </IconButton>
 
           {/* Middle Section - Links (Hidden on small screens) */}

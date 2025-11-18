@@ -63,11 +63,11 @@ export default function Login() {
 
   return (
     <>
-      <Box mb={4} textAlign="start">
+      <Box mb={4} mt={4}>
         <Typography variant="body1" color="textSecondary" >
           welcome back!
         </Typography>
-        <Typography variant="h4">
+        <Typography variant="h4" sx={{fontSize:{xs:'20px !important', sm:'33px !important'}}}>
           Login to your account
         </Typography>
       </Box>

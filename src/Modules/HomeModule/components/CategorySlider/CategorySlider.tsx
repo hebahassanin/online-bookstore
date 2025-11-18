@@ -35,10 +35,13 @@ import { FadeLoader } from "react-spinners";
 
 // import { LiaArrowAltCircleLeft, LiaArrowAltCircleRight } from 'react-icons/lia';
 
-
+interface category{
+  _id:string;
+  title:string;
+}
 
 export default function CategorySlider() {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<category []>([]);
   const [loading, setLoading]= useState(true);
   const navigate =useNavigate();
 
@@ -117,8 +120,8 @@ export default function CategorySlider() {
             768: {slidesPerView: 2},
             1024: {slidesPerView: 3}
           }}
-          className="categorySwiper"
-        >
+          className="categorySwiper">
+
           {categories.map((cat, index)=>{
             const img = Images[index % Images.length];
             return(
@@ -144,7 +147,6 @@ export default function CategorySlider() {
       )}
 
      
-
       <Button variant="outlined" className="purpule-color" 
         sx={{margin:"20px auto",width:"200px", display:"flex",    
         alignItems: "center",   
@@ -155,9 +157,6 @@ export default function CategorySlider() {
           View More <ArrowRightAltOutlinedIcon/>
       </Button>
 
-
-      
-      
     </>
   )
 }

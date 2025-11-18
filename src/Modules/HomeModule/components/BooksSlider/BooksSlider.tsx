@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material'
 import axios from 'axios';
 import  { useEffect, useState } from 'react'
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+// import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
@@ -11,7 +11,7 @@ import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined
 import { useDispatch } from 'react-redux';
 
 // import Images
-import bookImage1 from '../../../../assets/images/books/book1.png'; 
+/*import bookImage1 from '../../../../assets/images/books/book1.png'; 
 import bookImage2 from '../../../../assets/images/books/book2.png';
 import bookImage3 from '../../../../assets/images/books/book3.png';
 import bookImage4 from '../../../../assets/images/books/book4.png';
@@ -19,6 +19,7 @@ import bookImage5 from '../../../../assets/images/books/book5.png';
 import bookImage6 from '../../../../assets/images/books/book6.png';
 import bookImage7 from '../../../../assets/images/books/book7.png';
 import bookImage8 from '../../../../assets/images/books/book8.png';
+*/
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -47,8 +48,8 @@ interface Book{
 
 export default function BooksSlider() {
     const [books, setBooks]= useState<Book[]>([]);
-    const Images =[bookImage1, bookImage2, bookImage3,bookImage4,
-         bookImage5,bookImage6, bookImage7,bookImage8];
+    // const Images =[bookImage1, bookImage2, bookImage3,bookImage4,
+    //      bookImage5,bookImage6, bookImage7,bookImage8];
 
     const dispatch = useDispatch<AppDispatch>(); 
     
@@ -108,10 +109,10 @@ export default function BooksSlider() {
           clickable:true
         }}
         modules={[EffectCoverflow,Autoplay,Pagination]}
-        className="BooksSlider"
-      >
-        {books.map((book, index)=>{
-            const img = Images[index % Images.length];
+        className="BooksSlider">
+          
+        {books.map((book)=>{
+            // const img = Images[index % Images.length];
             return(
             <SwiperSlide className="slider3" key={book._id}>
             <Card sx={{ width:"100%",boxShadow:"none", bgcolor:"transparent" }}>

@@ -11,7 +11,7 @@ import ChangePassword from './Modules/AuthModule/components/ChangePassword/Chang
 import MasterLayout from './Modules/Shared/components/MasterLayout/MasterLayout'
 import Home from './Modules/HomeModule/Home/Home'
 import Cart from './Modules/CartModule/components/Cart/Cart'
-import OrderConfirmation from './Modules/CartModule/components/OrderConfirmation/OrderConfirmation'
+import OrderConfirmation from './Modules/OrderModule/components/OrderConfirmation/OrderConfirmation'
 import { ToastContainer } from 'react-toastify'
 import Categories from './Modules/HomeModule/components/Categories/Categories'
 import Books from './Modules/BooksModule/components/Books/Books'
@@ -21,7 +21,7 @@ import ProtectedRoute from './Routes/ProtectedRoute/ProtectedRoute'
 import {loadStripe} from '@stripe/stripe-js';
 import {Elements} from '@stripe/react-stripe-js';
 
-const stripe = loadStripe('pk_test_51SLt9VK3dPHluhJWxQX05FsZklD7RPhYpgZMQxW6rAKkuEa979Rxn2xGo06efZ2C8iMePRF6KLN8iJ0QCioDO6Ff00ga2jnQ8b')
+const stripe = loadStripe('pk_test_51SQhHH2zWNpdziJznVpdM3zFX6Ob9945Yxpyo6wxhocU3DCx8xjdoiqsBxMxj8f0IMEIVeY3sVFhw6xMZfTPowRw00I6mEW6h3')
 function App() {
   const routes= createBrowserRouter([
     {

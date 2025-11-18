@@ -45,7 +45,6 @@ export default function ForgetPassword() {
       </Box>
 
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-      <Typography variant="h5" marginBottom={1}>E-mail</Typography>
       <TextField type="email" id="email"  label='email'
       variant="outlined" sx={{width:"100%"}}
       {...register("email",{required:"email is required"})}

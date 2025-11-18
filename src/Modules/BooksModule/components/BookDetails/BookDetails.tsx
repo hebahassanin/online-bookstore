@@ -68,17 +68,18 @@ export default function BookDetails() {
     <>
      <Grid container spacing={2} sx={{marginBottom:"2rem", padding:"20px"}}>
 
-      <Grid size={6} sx={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
-      <Card sx={{ width:"50%", bgcolor:"transparent" }} elevation={5}>
+      <Grid size={{xs:12,md:6}} sx={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
+      <Card sx={{ width:"50%",bgcolor:"transparent" }} elevation={5}>
         <CardMedia 
           component="img" 
           image={book.image} 
           alt={book.description} 
-          sx={{ width: "100%",height:"500px", objectFit:"contain", borderRadius:"10px" }}
+          sx={{ width:"100%" ,height:{xs:"300px",md:"500px"}, objectFit:"contain", borderRadius:"10px" }}
         />   
       </Card>
       </Grid>
-      <Grid size={6}>
+      <Grid size={{xs:12,md:6}} display="flex" flexDirection="column" 
+      sx={{alignItems:{xs:"center",md:"flex-start"}, justifyContent:{xs:"center",md:"flex-start"}, mt:{xs:3,md:"none"}}}>
       <Typography gutterBottom variant="h3" className='purpule-color'
          sx={{textTransform:"capitalize"}}>
               featured book

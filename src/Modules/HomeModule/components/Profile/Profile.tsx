@@ -26,19 +26,19 @@ export default function Profile() {
   return (
     <>
     <Stack className="purpule-color profile-bg" sx={{display:"flex", alignItems:"center", 
-    justifyContent:"center", paddingY:"25px"}}>
+    justifyContent:"center", paddingY:"25px",marginTop:{xs:"30px",sm:0} }}>
         <Typography variant="h4">Profile</Typography>
     </Stack>
     {user ?(
         <>
         <Grid container spacing={4} sx={{my:3, py:5,px:3}}>
-        <Grid  size={6} className="profile-bg" sx={{display:"flex",flexDirection:"column" ,alignItems:"center", 
+        <Grid  size={{xs:12,sm:6}} className="profile-bg" sx={{display:"flex",flexDirection:"column" ,alignItems:"center", 
         justifyContent:"center", borderRadius:"12px",boxShadow:"0 4px 10px rgba(0,0,0,0.6)"}}>
             <Avatar className="purpule-bg" sx={{width:90, height:90,fontSize:"40px"}}>
-                {user.first_name[0].toUpperCase()}
+                {user?.first_name[0].toUpperCase()}
             </Avatar>
             <Typography variant="h4" sx={{marginTop:"10px",marginBottom:"5px",textTransform:"capitalize"}}>
-                {user.first_name} {user.last_name}
+                {user?.first_name} {user?.last_name}
             </Typography>
             <Box  sx={{display:"inline-block",backgroundColor:"#d4edda",
              color:"#155724",fontWeight: 600,fontSize:"22px" ,borderRadius:"8px",width:"fit-content", 
@@ -47,7 +47,7 @@ export default function Profile() {
             </Box>
         </Grid>
 
-        <Grid size={6}>
+        <Grid size={{xs:12,sm:6}}>
         <TableContainer component={Box} className="profile-bg"
         sx={{maxWidth: 600, marginRight:"auto",p:5,boxShadow:"0 4px 10px rgba(0,0,0,0.6)",borderRadius:"12px"}}>
           <Typography variant='h5' sx={{fontWeight:"bold", marginBottom:"20px"}}>

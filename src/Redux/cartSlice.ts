@@ -83,8 +83,8 @@ export const fetchCartItems = createAsyncThunk <Cart, void, { rejectValue: strin
 
 // Update Cart
 export const updateCart = createAsyncThunk<Cart,
-{cartId:string; bookId: string; quantity: number},{rejectValue:string}>
-("cart/updateCart", async ({cartId, bookId, quantity},thunkAPI) =>{
+{cartId:string; bookId: string; quantity: number,items: CartItem[]},{rejectValue:string}>
+("cart/updateCart", async ({cartId, bookId, quantity,items},thunkAPI) =>{
   try {
     const token = localStorage.getItem("accessToken");
     const res= await axios.put(`https://upskilling-egypt.com:3007/api/basket/${cartId}`,
@@ -92,8 +92,9 @@ export const updateCart = createAsyncThunk<Cart,
       items:[
         {
           book: bookId,
-          quantity: quantity.toString(),
-        }
+          quantity: quantity.toString()
+        },
+        ...items,
       ]
     },
     {
@@ -137,7 +138,14 @@ export const deleteCartItem = createAsyncThunk<
 const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+
+    clearCart:(state)=>{
+      state.cart = null;
+      state.loading = false;
+      state.error = null;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(addItemToCart.pending, (state) => {
@@ -199,5 +207,7 @@ const cartSlice = createSlice({
       })
   },
 });
+
+export const {clearCart} = cartSlice.actions;
 
 export default cartSlice.reducer;

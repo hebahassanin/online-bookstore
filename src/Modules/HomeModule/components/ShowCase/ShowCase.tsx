@@ -45,16 +45,17 @@ export default function ShowCase() {
           prevEl:'.custom-prev'
         }}
         modules={[Autoplay,Pagination, Navigation]}
-        className="mySwiper"
-      >
+        className="mySwiper">
+
+
         <SwiperSlide className='slider1'>
-          <Grid container>
-            <Grid size={6} sx={{display:"flex", flexDirection:"column", justifyContent:"center",paddingLeft:"7rem"}}>
-              <Typography variant='h4' className='purpule-color' sx={{fontSize:"3.5rem",fontWeight:"bold",textTransform:"capitalize",
-              letterSpacing:"3px"}} >
+          <Grid container direction={{xs:"column", md:"row"}} sx={{mb:2}}>
+            <Grid size={{xs:12, md:6}} sx={{display:"flex", flexDirection:"column", justifyContent:"center",paddingLeft:"7rem"}}>
+              <Typography variant='h4' className='purpule-color' sx={{marginTop:{xs:"30px !important"},fontSize:{xs:"2.5rem",sm:"3.5rem"},fontWeight:"bold",textTransform:"capitalize",
+              letterSpacing:{xs:"4px",sm:"3px"}}} >
               Ipsum dolor si
               </Typography>
-              <Typography variant='body1' className='purpule-color' sx={{fontSize:"1.5rem",letterSpacing:"1px",
+              <Typography variant='body1' className='purpule-color' sx={{fontSize:{xs:"1.2rem",sm:"1.5rem"},letterSpacing:"1px",
               margin:"15px 0", lineHeight:"1.5"}}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Sed eu feugiat amet, libero ipsum enim pharetra hac. Urna commodo,
@@ -66,20 +67,22 @@ export default function ShowCase() {
                 <ArrowForwardOutlinedIcon sx={{marginLeft:"5px"}}/>
               </Button>
             </Grid>
-            <Grid size={6}>
-              <img src={slideImage1} alt="slideImage"/>
+            <Grid size={{xs:12, md:6}} sx={{display:"flex", justifyContent:{xs:"center", sm:"center", md:"flex-start"},
+             alignItems:{xs:"center", sm:"center", md:"flex-start"},
+             mx:{xs:2, sm:2, md:0}}}>
+              <img src={slideImage1} alt="slideImage" style={{width:"100%", maxWidth: "300px", height:"auto"}}/>
             </Grid>
           </Grid>
         </SwiperSlide>
 
         <SwiperSlide className='slider1'>
-        <Grid container>
-            <Grid size={6} sx={{display:"flex", flexDirection:"column", justifyContent:"center",paddingLeft:"7rem"}}>
-              <Typography variant='h4' sx={{fontSize:"3.5rem",fontWeight:"bold",textTransform:"capitalize",
-              color:"#393280",letterSpacing:"3px"}} >
+        <Grid container direction={{xs:"column", md:"row"}} sx={{mb:2}}>
+            <Grid size={{xs:12, md:6}} sx={{display:"flex", flexDirection:"column", justifyContent:"center",paddingLeft:"7rem"}}>
+              <Typography variant='h4' sx={{marginTop:{xs:"30px !important"},fontSize:{xs:"2.5rem",sm:"3.5rem"},fontWeight:"bold",textTransform:"capitalize",
+              color:"#393280",letterSpacing:{xs:"4px",sm:"3px"}}} >
               Ipsum dolor si
               </Typography>
-              <Typography variant='body1' sx={{fontSize:"1.5rem",letterSpacing:"1px",color:"#393280",
+              <Typography variant='body1' sx={{fontSize:{xs:"1.2rem",sm:"1.5rem"},letterSpacing:"1px",color:"#393280",
                margin:"15px 0", lineHeight:"1.5"}}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Sed eu feugiat amet, libero ipsum enim pharetra hac. Urna commodo,
@@ -91,19 +94,21 @@ export default function ShowCase() {
                 <ArrowForwardOutlinedIcon sx={{marginLeft:"5px"}}/>
               </Button>
             </Grid>
-            <Grid size={6}>
-              <img src={slideImage2} alt="slideImage"/>
+            <Grid size={{xs:12, md:6}} sx={{display:"flex", justifyContent:{xs:"center", sm:"center", md:"flex-start"},
+             alignItems:{xs:"center", sm:"center", md:"flex-start"},
+             mx:{xs:2, sm:2, md:0}}}>
+              <img src={slideImage2} alt="slideImage" style={{width:"100%", maxWidth: "300px", height:"auto"}}/>
             </Grid>
           </Grid>
         </SwiperSlide>
         <SwiperSlide className='slider1'>
-        <Grid container>
-            <Grid size={6} sx={{display:"flex", flexDirection:"column", justifyContent:"center",paddingLeft:"7rem"}}>
-              <Typography variant='h4' sx={{fontSize:"3.5rem",fontWeight:"bold",textTransform:"capitalize",
-              color:"#393280",letterSpacing:"3px"}} >
+        <Grid container direction={{xs:"column", md:"row"}} sx={{mb:2}}>
+            <Grid size={{xs:12, md:6}} sx={{display:"flex", flexDirection:"column", justifyContent:"center",paddingLeft:"7rem"}}>
+              <Typography variant='h4' sx={{marginTop:{xs:"30px !important"},fontSize:{xs:"2.5rem",sm:"3.5rem"},fontWeight:"bold",textTransform:"capitalize",
+              color:"#393280",letterSpacing:{xs:"4px",sm:"3px"}}} >
               Ipsum dolor si
               </Typography>
-              <Typography variant='body1' sx={{fontSize:"1.5rem",letterSpacing:"1px",color:"#393280",
+              <Typography variant='body1' sx={{fontSize:{xs:"1.2rem",sm:"1.5rem"},letterSpacing:"1px",color:"#393280",
               margin:"15px 0", lineHeight:"1.5"}}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Sed eu feugiat amet, libero ipsum enim pharetra hac. Urna commodo,
@@ -115,8 +120,10 @@ export default function ShowCase() {
                 <ArrowForwardOutlinedIcon sx={{marginLeft:"5px"}}/>
               </Button>
             </Grid>
-            <Grid size={6}>
-              <img src={slideImage3} alt="slideImage"/>
+            <Grid size={{xs:12, md:6}} sx={{display:"flex", justifyContent:{xs:"center", sm:"center", md:"flex-start"},
+             alignItems:{xs:"center", sm:"center", md:"flex-start"},
+             mx:{xs:2, sm:2, md:0}}}>
+              <img src={slideImage3} alt="slideImage" style={{width:"100%", maxWidth: "300px", height:"auto"}}/>
             </Grid>
           </Grid>
         </SwiperSlide>
@@ -134,7 +141,7 @@ export default function ShowCase() {
             </IconButton>
             </Box>
             
-            </Swiper>
+        </Swiper>
 
       
     </>

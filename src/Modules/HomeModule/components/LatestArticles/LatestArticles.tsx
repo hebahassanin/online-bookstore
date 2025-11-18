@@ -1,4 +1,3 @@
-import Stack from '@mui/material/Stack';
 import { Box, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -21,28 +20,26 @@ export default function LatestArticles() {
   return (
     <>
     <Box sx={{backgroundColor:"rgb(247, 252, 252)"}}>
-      <Box  component="div" sx={{padding:"40px 0 20px"}}>
-        <Stack sx={{display:"flex", flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-            <Typography variant="body1" color="textSecondary" 
-            sx={{letterSpacing:"2px", fontSize:"18px",textTransform:"uppercase", fontWeight:"400"}}>
-            Read our articles
-            </Typography>
-            <Typography variant="h4" className='blueBold-text' 
-            sx={{fontWeight:"bold",margin:"10px 0",letterSpacing:"5px"}}>
-            Latest Articles
-            </Typography>
-        </Stack>
+      <Box  component="div" sx={{padding:"40px 0 20px",display:"flex", flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+        <Typography variant="body1" color="textSecondary" 
+        sx={{letterSpacing:"2px", fontSize:"18px",textTransform:"uppercase", fontWeight:"400"}}>
+        Read our articles
+        </Typography>
+        <Typography variant="h4" className='blueBold-text' 
+        sx={{fontWeight:"bold",margin:"10px 0",letterSpacing:"5px"}}>
+        Latest Articles
+        </Typography>
       </Box>
 
 
       <Grid container spacing={1} sx={{ margin:"1.5rem 3rem"}}>
-        <Grid size={4}>
+        <Grid size={{xs:12,sm:6,md:4}}>
           <Card sx={{ width:"90%",boxShadow:"none", bgcolor:"transparent" }}>
             <CardMedia component="img" image={articlePhoto1} alt="articlePhoto"
             sx={{ width:"100%", height:"300px",objectFit:"fill",  borderRadius:"10px" }}/>
             <CardContent>
               <Typography variant="body2" color='textSecondary' sx={{marginBottom:"10px"}}>
-                2 aug, 2021
+                2 Aug, 2021
               </Typography>
               <Typography variant="h6" className='blueBold-text' 
               sx={{lineHeight:"1.7",letterSpacing:"2px",textTransform:"capitalize", marginBottom:"15px"}}>
@@ -64,13 +61,13 @@ export default function LatestArticles() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid size={4}>
+        <Grid size={{xs:12,sm:6,md:4}}>
           <Card sx={{ width:"90%",boxShadow:"none", bgcolor:"transparent" }}>
             <CardMedia component="img" image={articlePhoto2} alt="articlePhoto"
             sx={{ width:"100%", height:"300px",objectFit:"fill", borderRadius:"10px" }}/>
             <CardContent>
               <Typography variant="body2" color='textSecondary' sx={{marginBottom:"10px"}}>
-                2 aug, 2021
+                2 Aug, 2021
               </Typography>
               <Typography variant="h6" className='blueBold-text' 
               sx={{lineHeight:"1.7",letterSpacing:"2px",textTransform:"capitalize", marginBottom:"15px"}}>
@@ -92,14 +89,14 @@ export default function LatestArticles() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid size={4}>
+        <Grid size={{xs:12,sm:6,md:4}}>
           <Card sx={{ width:"90%",boxShadow:"none", bgcolor:"transparent" }}>
             <CardMedia component="img" image={articlePhoto3} alt="articlePhoto"
             sx={{ width:"100%", height:"300px",objectFit:"fill", borderRadius:"10px" }}
             />
             <CardContent>
               <Typography variant="body2" color='textSecondary' sx={{marginBottom:"10px"}}>
-                2 aug, 2021
+                2 Aug, 2021
               </Typography>
               <Typography variant="h6" className='blueBold-text' 
               sx={{lineHeight:"1.7",letterSpacing:"2px",textTransform:"capitalize", marginBottom:"15px"}}>
@@ -122,15 +119,15 @@ export default function LatestArticles() {
           </Card>
         </Grid>
 
-        <Button variant="outlined" sx={{margin:"20px auto"
+      </Grid>
+
+      <Button variant="outlined" sx={{margin:"20px auto"
         ,width:"200px", display:"flex",    
         alignItems: "center",   
         justifyContent: "center",   
         padding:"12px 0",borderColor:"#173F5F",color:"#173F5F"}}>
           View More <ArrowRightAltOutlinedIcon/>
       </Button>
-
-      </Grid>
       </Box>
     </>
   )

@@ -8,10 +8,11 @@ import {Facebook, Twitter, Instagram, LinkedIn, YouTube} from "@mui/icons-materi
 export default function Contact() {
   return (
     <>
-      <Grid container direction="row"
-        sx={{ justifyContent: "space-between",alignItems: "center", padding:"10px 20px",color:"white"}}
+      <Grid container direction={{xs:"column",sm:"row"}}
+        sx={{ justifyContent: {xs:"center",sm:"space-between"},
+        alignItems: "center", padding:"10px 20px",color:"white"}}
         className="purpule-bg">
-        <Grid >
+        <Grid m={{xs:1, sm:0}}>
           <Typography variant='body1' display="flex" flexDirection='row' alignItems="center">
             <PhoneIcon sx={{marginRight:"4px"}}/>  +91 8374902234
           </Typography>

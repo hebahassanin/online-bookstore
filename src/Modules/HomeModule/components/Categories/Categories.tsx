@@ -14,6 +14,7 @@ import slider2Img4 from '../../../../assets/images/slider2/slider2-img4.jpg';
 import slider2Img5 from '../../../../assets/images/slider2/slider2-img5.jpg';
 import slider2Img6 from '../../../../assets/images/slider2/slider2-img6.jpg';
 import { FadeLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
 
 interface category{
   _id:string;
@@ -27,6 +28,7 @@ export default function Categories() {
 
   const [categories, setCategories]= useState<category []>([]);
   const [loading, setLoading]= useState(true);
+  const navigate= useNavigate();
   
 
   const getAllCategories=async()=>{
@@ -61,8 +63,9 @@ export default function Categories() {
     {categories.map((category, index)=>{
             const img = Images[index % Images.length];
             return(
-              <Grid size={4} sx={{marginBottom:"2rem"}} key={category._id}>
-              <Card sx={{ width:"80%", bgcolor:"transparent"}} elevation={5}>
+              <Grid size={{xs:12,sm:6,md:4}} sx={{marginBottom:"2rem"}} key={category._id}>
+              <Card sx={{ width:"80%", bgcolor:"transparent",cursor:"pointer"}} elevation={5} 
+              onClick={()=> navigate(`/dashboard/books?category=${category._id}`)}>
                   <CardMedia 
                     component="img" 
                     image={img} 

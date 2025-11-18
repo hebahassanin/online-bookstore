@@ -9,7 +9,9 @@ export default function AuthLayout() {
   return (
     <Grid container justifyContent="center">
       <Grid size={{sm:12, md:6}} order={{xs:2, sm:2, md:0}}>
-        <Item><img src={authImg} alt='book store image'  style={{objectFit:"cover", width:"100%",height:"100vh"}}/></Item>
+        <Item><img src={authImg} alt='book store image'  
+        style={{objectFit:"cover", width:"100%",height:"100vh"}}/>
+        </Item>
       </Grid>
 
       <Grid size={{sm:12, md:6}} order={{xs:1, sm:1, md:2}}>
