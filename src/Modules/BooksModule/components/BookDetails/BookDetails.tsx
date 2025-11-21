@@ -68,13 +68,14 @@ export default function BookDetails() {
     <>
      <Grid container spacing={2} sx={{marginBottom:"2rem", padding:"20px"}}>
 
-      <Grid size={{xs:12,md:6}} sx={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
-      <Card sx={{ width:"50%",bgcolor:"transparent" }} elevation={5}>
+      <Grid size={{xs:12,md:6}} sx={{display:"flex", flexDirection:"row", justifyContent:"center"
+      ,marginTop:{xs:"30px",sm:0}}}>
+      <Card sx={{ width:{xs:"50%",sm:"40%",md:"50%"},bgcolor:"transparent" }} elevation={5}>
         <CardMedia 
           component="img" 
           image={book.image} 
           alt={book.description} 
-          sx={{ width:"100%" ,height:{xs:"300px",md:"500px"}, objectFit:"contain", borderRadius:"10px" }}
+          sx={{ minWidth:{xs:"100%",sm:"80%",md:"100%"} ,margin:{xs:0,sm:"auto",md:0},height:{xs:"300px",md:"500px"}, objectFit:"contain", borderRadius:"10px" }}
         />   
       </Card>
       </Grid>
@@ -103,11 +104,11 @@ export default function BookDetails() {
           <Box sx={{marginY:"20px"}}>
           <Button  variant="contained" className="orangeBold-bg" 
           onClick={()=> handleAddToCart(book)} 
-          sx={{padding:"10px 20px",marginRight:"4rem"}}>
+          sx={{padding:"10px 20px",marginRight:"4rem", fontSize:"20px"}}>
             Add To Cart
           </Button>
           <Button  variant="outlined" className="purpule-color"
-          sx={{padding:"10px 20px",borderColor:"#393280"}} onClick={()=> navigate("/dashboard/books")}>
+          sx={{padding:"10px 20px",borderColor:"#393280", fontSize:"20px"}} onClick={()=> navigate("/dashboard/books")}>
             Back To Books</Button>
 
           </Box>

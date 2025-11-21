@@ -35,12 +35,12 @@ interface Book{
 export default function Cart() {
   const [books, setBooks]= useState<Book[]>([]);
   const dispatch = useDispatch<AppDispatch>();
-  const {cart,loading,error}= useSelector((state:RootState) => state.cart);
+  const {cart,loading}= useSelector((state:RootState) => state.cart);
 
   const total:any= cart?.items.reduce((acc, item)=>{
     const bookDetails= books.find((b)=>b._id === item.book);
     return acc + (bookDetails?.price ?? 0) * item.quantity;
-  },0);
+  },0) ?? 0;
 
   const tax = total * 0.1;
   const totalCost = total + tax;
@@ -56,12 +56,27 @@ export default function Cart() {
       const response = await dispatch(fetchCartItems());
 
       // ignore book that i will update, means i will retrieve items without item that i updated.
-      const otherItems =response?.payload?.items.filter((item:any)=>
-      item.book !== bookId);
+      if (
+        !response.payload ||
+        typeof response.payload === "string" ||
+        !response.payload.items
+      ) {
+        toast.error("Failed to fetch cart items");
+        return;
+      }
 
-      const formattedItems = otherItems.map((item:any)=>({
-        book: item.book, quantity: item.quantity,
-      }))
+
+      const otherItems =response?.payload?.items.filter((item)=>{
+        const bookIdValue =
+        typeof item.book === "string" ? item.book : item.book?._id || "";
+      return bookIdValue !== bookId;
+      });
+      // item.book !== bookId);
+
+      const formattedItems = otherItems.map((item)=>({
+        book: typeof item.book === "string" ? item.book : item.book?._id || "",
+        quantity: item.quantity,
+      }));
 
       console.log(formattedItems);
 
@@ -91,11 +106,27 @@ export default function Cart() {
     try {
 
       const response =await dispatch(fetchCartItems());
-      const otherItems =response?.payload?.items.filter((item:any)=>
-      item.book !== bookId);
 
-      const formattedItems = otherItems.map((item:any)=>
-      ({book: item.book, quantity: item.quantity,}))
+      if (
+        !response.payload ||
+        typeof response.payload === "string" ||
+        !response.payload.items
+      ) {
+        toast.error("Failed to fetch cart items");
+        return;
+      }
+
+
+      const otherItems =response.payload.items.filter((item)=>{
+      const bookIdValue =
+      typeof item.book === "string" ? item.book : item.book?._id || "";
+    return bookIdValue !== bookId;
+  });
+
+  const formattedItems = otherItems.map((item) => ({
+    book: typeof item.book === "string" ? item.book : item.book?._id || "",
+    quantity: item.quantity,
+  }));
 
       await dispatch(updateCart({cartId:cart._id,bookId ,quantity:currentQty-1,
       items: formattedItems})).unwrap();
@@ -150,9 +181,9 @@ export default function Cart() {
     )  
   }
 
-   if(error){
-    return <Typography color='error'>{String(error)}</Typography>
-   }   
+  //  if(error){
+  //   return <Typography color='error'>{String(error)}</Typography>
+  //  }   
   return (
     <>
     <Stack display="flex" alignItems="center" justifyContent="center" 
@@ -186,7 +217,7 @@ export default function Cart() {
             </TableHead>
             <TableBody>
 
-              {cart?.items.length ===0 ?(
+              {!cart || !cart?.items || cart?.items?.length === 0 ?(
                 <TableRow>
                   <TableCell>
                     <Typography variant='h6' sx={{color:"#000"}}>your cart is empty.</Typography>
@@ -286,6 +317,10 @@ export default function Cart() {
             </TableBody>
           </Table>
         </TableContainer>
+
+        {/* <Box sx={{marginTop: 4 , width: "100%"}}>
+          <Payment />
+        </Box> */}
       </Grid>
     </Grid>
 

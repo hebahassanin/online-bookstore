@@ -123,7 +123,7 @@ export default function BooksSlider() {
                 alt={book.description} 
                 sx={{ width:"100%", height:"80%", objectFit:"cover", borderRadius:"10px" }}
               />
-              <Button variant="contained" className='add-to-cart-btn'
+              <Button variant="contained" className='add-to-cart-btn' sx={{fontSize:"25px"}}
                onClick={()=> handleAddToCart(book)}>
                 Add to cart
               </Button>

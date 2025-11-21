@@ -134,7 +134,7 @@
     padding: 10px!important;
     transform: translate(-50%, -50%);
     background-color: #ED553B !important; /* برتقالي */
-    font-size: 25px !important;
+    /* font-size: 25px !important; */
     font-weight: 700!important;
     color: white !important;
     opacity: 0;

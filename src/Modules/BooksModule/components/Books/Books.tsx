@@ -272,7 +272,7 @@ export default function Books() {
       {books.map((book)=>{
         return(
           <>
-          <Grid size={books.length ===1 ? 12: isListView ? 12 : 4} sx={{marginBottom:"2rem", paddingLeft:isListView ? "100px":0}}  key={book._id} >
+          <Grid size={{xs:12, sm:isListView ? 12:6 , md:isListView ? 12 : 4}} sx={{marginBottom:"2rem", paddingLeft:isListView ? "100px":0}}  key={book._id} >
             <Box display="flex" flexDirection={isListView ? "row" : "column"} 
             alignItems="center"
             gap={isListView ? 7 :0}>
@@ -285,7 +285,7 @@ export default function Books() {
                     sx={{ width: "100%",margin:"0 auto",height:"300px",
                     objectFit:"contain", borderRadius:"10px" }}
                   />
-                  <Button sx={{fontSize:{xs:"20px",md:"25px"}}} variant="contained" className='add-to-cart-btn'
+                  <Button sx={{fontSize:{xs:"20px",lg:"25px"}}} variant="contained" className='add-to-cart-btn'
                     onClick={()=>handleAddToCart(book)}>
                       Add to cart
                   </Button>

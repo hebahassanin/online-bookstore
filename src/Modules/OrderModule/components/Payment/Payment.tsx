@@ -123,8 +123,8 @@ export default function Payment() {
     <>
     <Box>
         <form onSubmit={handleSubmit}>
-            <Grid container spacing={2} display="flex" flexDirection="column" sx={{marginX: "40px"}}>
-               <Grid size={{xs:12, md:4, lg:4}}  sx={{padding:3, marginTop: 6,
+            <Grid container spacing={2} display="flex" flexDirection="column" sx={{marginX:"40px"}}>
+               <Grid size={{xs:12,sm:6, md:4, lg:4}}  sx={{padding:3, marginTop: 6,
                 boxShadow:"0 4px 8px rgba(0,0,0,0.1)",
                 borderRadius: 2,
                 backgroundColor: "#f9f9f9", ml:2}}>
@@ -137,7 +137,7 @@ export default function Payment() {
                     <CardElement/>
                </Grid>
                <Divider sx={{mb:2}}/>
-               <Grid size={{xs:12, md:4, lg:4}} sx={{padding: 3,
+               <Grid size={{xs:12, sm:6,md:4, lg:4}} sx={{padding: 3,
                 marginTop: 3,
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                 borderRadius: 2,
