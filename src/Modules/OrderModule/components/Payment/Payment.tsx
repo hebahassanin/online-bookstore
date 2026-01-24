@@ -23,8 +23,8 @@ export default function Payment() {
   const dispatch = useDispatch<AppDispatch>();
 
   // check if cart is not null
-  if(!cart){
-    return <Typography>Error: Cart is not avaliable</Typography>
+  if(!cart || cart?.items?.length ===0){
+    return null; 
   }
 
   const handleSubmit = async (e:FormEvent)=>{
@@ -127,7 +127,7 @@ export default function Payment() {
                <Grid size={{xs:12,sm:6, md:4, lg:4}}  sx={{padding:3, marginTop: 6,
                 boxShadow:"0 4px 8px rgba(0,0,0,0.1)",
                 borderRadius: 2,
-                backgroundColor: "#f9f9f9", ml:2}}>
+                backgroundColor: "#f9f9f9", ml:2,mb:2}}>
                     
                     <Typography variant="h5" 
                     sx={{fontWeight:"bold", textAlign:"center",color: "#333", mb:2}}>
@@ -136,7 +136,7 @@ export default function Payment() {
                     <Divider sx={{mb:2}}/>
                     <CardElement/>
                </Grid>
-               <Divider sx={{mb:2}}/>
+               {/* <Divider sx={{mb:2}}/> */}
                <Grid size={{xs:12, sm:6,md:4, lg:4}} sx={{padding: 3,
                 marginTop: 3,
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
@@ -154,12 +154,15 @@ export default function Payment() {
                     phone: "always",
                   },
                 }}/>
+
+        <Stack width="100%" pt={6}>
+              <Button type="submit" variant='contained' className='orangeBold-bg' 
+              sx={{textTransform:"uppercase", width:"260px",marginX:"auto",fontSize:"1rem"}}>proceed to chechout</Button>
+            </Stack>
               </Grid>
               </Grid>
 
-            <Stack width="100%" pt={6}>
-              <Button type="submit" variant='contained' className='orangeBold-bg' sx={{textTransform:"uppercase", width:"400px", m:3}}>proceed to chechout</Button>
-            </Stack>
+            
         </form>
     </Box>
       

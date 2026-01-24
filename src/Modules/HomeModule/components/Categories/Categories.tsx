@@ -63,7 +63,7 @@ export default function Categories() {
     {categories.map((category, index)=>{
             const img = Images[index % Images.length];
             return(
-              <Grid size={{xs:12,sm:6,md:4}} sx={{marginBottom:"2rem"}} key={category._id}>
+              <Grid size={{xs:12,sm:6,md:4}} sx={{marginBottom:"2rem",marginTop:{xs:"2rem",sm:0}}} key={category._id}>
               <Card sx={{ width:"80%", bgcolor:"transparent",cursor:"pointer"}} elevation={5} 
               onClick={()=> navigate(`/dashboard/books?category=${category._id}`)}>
                   <CardMedia 

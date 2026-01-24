@@ -84,7 +84,7 @@ export default function BooksSlider() {
             Some quality items
             </Typography>
             <Typography variant="h4" className='purpule-color' 
-            sx={{fontWeight:"bold",margin:"10px 0",letterSpacing:"5px"}}>
+            sx={{fontWeight:"bold",margin:{xs:"10px 50px",sm:"10px 0"},letterSpacing:"5px"}}>
             New Release Books
             </Typography>
         </Box>

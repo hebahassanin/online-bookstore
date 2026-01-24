@@ -87,9 +87,9 @@ export default function Books() {
   
     setSelectedCategories(newSelected);
   
-    // فلترة الكتب بناءً على الكاتيجوريات المختارة
+    // Filter books based on selected categories 
     if (newSelected.length === 0) {
-      setBooks(allBooks); // لو مفيش فلترة، رجع كل الكتب
+      setBooks(allBooks); // if there's no filtering, return all the books.
     } else {
       const filteredBooks = allBooks.filter((book) =>
         newSelected.includes(String(book.category))
@@ -209,13 +209,17 @@ export default function Books() {
      <Grid container size={{xs:12, md:10}} spacing={2}>
       {/* Sort by Name and price & View Buttons */}
             <Box display="flex" justifyContent="space-between" alignItems="center"
-             mb={3} mx={3} width="100%">
-              <Box display="flex" alignItems="center" gap={2}>
-            <Typography variant="h4" sx={{color:"#333", fontSize:"30px"}}> Sort by:</Typography>
+             mb={3} width="100%" flexWrap="wrap" flexDirection="row" gap={1}
+             sx={{marginX:{xs:0,sm:3}}}>
+              <Box display="flex" alignItems="center" gap={1}>
+            <Typography variant="h4" sx={{color:"#333", fontWeight:"500" ,
+            fontSize:{xs:"18px", sm:"18px",md:"28px"}}}> 
+            Sort by:
+            </Typography>
 
             {/* Sort by Name button */}
             <Button variant="contained" onClick={handleSortByName}
-            sx={{textTransform:"none", fontWeight:"bold", fontSize:"18px",
+            sx={{textTransform:"none", fontWeight:"bold", fontSize:{xs:"15px",sm:"18px"},
             backgroundColor: sortByNameAsc ? "#ef6b4a":"#f0f0f0",
             transition:"all 0.3s ease",
             color: sortByNameAsc ? "#fff": "#333",
@@ -223,9 +227,9 @@ export default function Books() {
             },
             display: "flex",
             alignItems: "center",
-            gap: 1,
+            gap: 0.5,
             borderRadius: "8px",
-            padding:"8px 16px"}}>
+            padding:{xs:"4px 8px",sm:"6px 12px"}}}>
               Name
               {sortByNameAsc ?(
                 <ArrowUpwardIcon sx={{fontSize:"1.5rem"}}/>
@@ -237,15 +241,15 @@ export default function Books() {
             
               {/* Sort by Price button */}
             <Button variant="contained" onClick={handleSortByPrice}
-            sx={{textTransform:"none", fontWeight:"bold", fontSize:"18px",
+            sx={{textTransform:"none", fontWeight:"bold", fontSize:{xs:"15px",sm:"18px"},
             backgroundColor: sortByPriceAsc ? "#ef6b4a" : "#f0f0f0",
             transition:"all 0.3s ease",
             color: sortByPriceAsc ? "#fff" : "#333",
             "&:hover":{
               backgroundColor:"#ef6b4a"
             },
-            display:"flex", alignItems:"center", gap:1, 
-            borderRadius: "8px", padding:"8px 16px"
+            display:"flex", alignItems:"center", gap:0.5, 
+            borderRadius: "8px", padding:{xs:"4px 8px",sm:"6px 12px"}
             }}>
               Price
               {sortByPriceAsc ?(
@@ -257,33 +261,36 @@ export default function Books() {
           </Box>
         
         {/* -Icons to view books either grid (row) or list (column) */}
-        <Box>
+        <Box display="flex" >
           <IconButton onClick={()=> setIsListView(false)}>
-            <GridOnIcon  sx={{fontSize:"2rem",strokeWidth:1, color:!isListView ? "#ef6b4a": "#333"}}/>
+            <GridOnIcon  sx={{fontSize:{xs:"24px",sm:"2.3rem"},strokeWidth:1, color:!isListView ? "#ef6b4a": "#333"}}/>
           </IconButton>
           
           <IconButton onClick={()=>setIsListView(true)}>
-            <ListIcon  sx={{fontSize:"2.5rem",color: isListView ? "#ef6b4a": "#333"}}/>
+            <ListIcon  sx={{fontSize:{xs:"28px",sm:"3rem"},color: isListView ? "#ef6b4a": "#333"}}/>
           </IconButton>
         </Box>
         </Box>
 
-       <Grid container spacing={2} direction={isListView ? "column":"row"}>
+       <Grid container spacing={books.length == 2?6:2} direction={isListView ? "column":"row"}>
       {books.map((book)=>{
         return(
           <>
-          <Grid size={{xs:12, sm:isListView ? 12:6 , md:isListView ? 12 : 4}} sx={{marginBottom:"2rem", paddingLeft:isListView ? "100px":0}}  key={book._id} >
+          <Grid size={{xs:12, sm:isListView ? 12: 6 , md:isListView ? 12 : 4}} 
+          sx={{marginBottom:"2rem", paddingLeft: 0,
+           marginLeft: books.length == 1  || books.length==2? "130px":0 }}  key={book._id}>
             <Box display="flex" flexDirection={isListView ? "row" : "column"} 
-            alignItems="center"
-            gap={isListView ? 7 :0}>
-              <Card sx={{ width: isListView ? "25%":"70%", bgcolor:"transparent", }} elevation={5}>
+            alignItems="center" 
+            gap={isListView ? 4 :2}>
+              <Card sx={{ width: isListView ? "40%":"280px", bgcolor:"transparent",
+             }} elevation={5}>
               <Box className="image-box" sx={{position:"relative", width:"100%"}}>
                   <CardMedia className='book-image'
                     component="img" 
                     image={book.image} 
                     alt={book.description} 
-                    sx={{ width: "100%",margin:"0 auto",height:"300px",
-                    objectFit:"contain", borderRadius:"10px" }}
+                    sx={{ width: "100%",height:"300px",
+                    objectFit:"contain", borderRadius:"10px"}}
                   />
                   <Button sx={{fontSize:{xs:"20px",lg:"25px"}}} variant="contained" className='add-to-cart-btn'
                     onClick={()=>handleAddToCart(book)}>

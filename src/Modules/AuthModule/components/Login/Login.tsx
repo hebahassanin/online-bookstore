@@ -1,4 +1,5 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography,IconButton, InputAdornment } from "@mui/material";
+import {Visibility, VisibilityOff} from '@mui/icons-material'
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,6 +10,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import { useDispatch} from "react-redux";
 import { setCredentials } from "../../../../Redux/authSlice";
+import { useState } from "react";
 
 
 
@@ -16,6 +18,8 @@ import { setCredentials } from "../../../../Redux/authSlice";
 export default function Login() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   interface FormInputs {
     email: string;
@@ -78,11 +82,29 @@ export default function Login() {
           error={!!errors?.email}
           helperText={errors?.email?.message}
         />
-        <TextField type="password" id="password" label="password" 
-        variant="outlined" sx={{ width: "100%", marginTop: '15px' , marginBottom:'15px'}} 
+        <TextField type={showPassword? 'text':'password'} id="password" label="password" 
+        variant="outlined"
+        
+         sx={{ width: "100%", marginTop: '15px' , marginBottom:'15px'}} 
         {...register("password",{required:"password is required"})}
         error={!!errors?.password}
         helperText={errors?.password?.message}
+
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            )
+          }
+        }}
         />
 
         <Grid container sx={{justifyContent:"space-between"}}>

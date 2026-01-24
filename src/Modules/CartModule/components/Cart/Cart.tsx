@@ -198,14 +198,15 @@ export default function Cart() {
     </Stack>
 
     <Grid container spacing={4} sx={{margin:"40px 60px"}}>
-      <Grid size={{xs:12, md:7, lg:7}}>
+      <Grid size={{xs:12, md:8, lg:8}}>
         <TableContainer component={Box} className="purpule-color cart-bg" 
-          sx={{marginTop:3,minWidth: 400, marginLeft:"auto",padding:"20px", borderRadius:2}}>
+          sx={{marginTop:3,minWidth: 650, marginLeft:"auto",padding:"20px", borderRadius:2,
+          width:"100%"}}>
           <Typography variant='h5' sx={{fontWeight:"bold", marginBottom:"10px"}}>
             Cart Detailes
           </Typography>
 
-          <Table sx={{ minWidth: 300,marginTop:"20px" }} aria-label="simple table">
+          <Table sx={{ minWidth: "300px",marginTop:"20px", whiteSpace:"nowrap" }} aria-label="simple table">
             <TableHead sx={{borderTop: "2px solid #ccc", borderBottom:"2px solid #ccc",}}>
               <TableRow >
                 <TableCell sx={{fontSize:"18px"}}>Num</TableCell>
@@ -247,9 +248,9 @@ export default function Cart() {
                     <img 
                       src={bookDetails?.image} 
                       alt={bookDetails?.name} 
-                      style={{ width: "80px", height: "100px", objectFit: "cover", borderRadius: "4px" }}
+                      style={{ width: "70px", height: "90px", objectFit: "cover", borderRadius: "4px" }}
                     />
-                    <Typography variant="body1" sx={{ fontSize: "18px", fontWeight: 500 }}>
+                    <Typography variant="body1" sx={{ fontSize: "18px", fontWeight: 500}}>
                       {bookDetails?.name}
                     </Typography>
                   </Box>
@@ -274,7 +275,7 @@ export default function Cart() {
                     
                   <TableCell align="left" sx={{fontSize:"15px"}}>{cost}</TableCell>
                   <TableCell align="left" sx={{fontSize:"15px"}}>{subtotal}</TableCell>
-                  <TableCell> 
+                  <TableCell sx={{whiteSpace:"nowrap"}}> 
                     <IconButton color="error"
                     onClick={() => handleDelete(item._id)}>
                   <DeleteIcon/>
@@ -291,7 +292,7 @@ export default function Cart() {
         </TableContainer>
       </Grid>
 
-      <Grid size={{xs:12, md:5, lg:5}}>
+      <Grid size={{xs:12, md:4, lg:4}}>
         <TableContainer component={Box} className="purpule-color cart-bg" 
         sx={{marginTop:3,maxWidth: 400, marginLeft:{md:"auto"},padding:"20px",borderRadius:2}}>
           <Typography variant='h5' sx={{fontWeight:"bold", marginBottom:"20px"}}>
@@ -318,13 +319,11 @@ export default function Cart() {
           </Table>
         </TableContainer>
 
-        {/* <Box sx={{marginTop: 4 , width: "100%"}}>
-          <Payment />
-        </Box> */}
       </Grid>
     </Grid>
 
-    <Payment/>
+{ cart?.items && cart.items.length > 0 &&  <Payment/> }
+   
   </>
 
 

@@ -11,7 +11,7 @@ export default function NewsLetter() {
     <>
     <Stack sx={{backgroundColor:"#FCEBEA",paddingBottom:'3rem',position:"relative"}}>
       <Stack className="orangeBold-bg" 
-        sx={{color:"white",padding:"3rem 2rem 6rem", width:"80%", margin:"0 auto"}}
+        sx={{color:"white",padding:"3rem 2rem 6rem", width:{xs:"100%",sm:"80%"}, margin:"0 auto"}}
         display="flex" direction="column" 
         alignItems="center" justifyContent="center">
           <Typography variant="h4" sx={{fontWeight:"bold",
@@ -26,9 +26,9 @@ export default function NewsLetter() {
           </Typography>
       </Stack>
 
-      <Stack  sx={{position:"absolute",bottom:"28px",left:{xs:"30%",md:"25%"} }}>
+      <Stack  sx={{position:"absolute",bottom:"28px",left:{xs:"10%",sm:"25%"} }}>
         <TextField variant="outlined" placeholder='Enter Your email'
-        sx={{width:{xs:"300px",md:"600px"},backgroundColor:"white",
+        sx={{width:{xs:"310px",sm:"350px",md:"600px"},backgroundColor:"white",
         "& .MuiOutlinedInput-root":{
           height:"60px",
           "& fieldset":{

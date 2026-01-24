@@ -7,7 +7,7 @@ import booksOffers from '../../../../assets/images/home/books offers.png';
 export default function BooksOffers() {
   return (
     <>
-       <Grid container sx={{backgroundColor:"#FCEBEA",margin:"20px 3.5rem",padding:"3rem"}}>
+      <Grid container sx={{backgroundColor:"#FCEBEA",margin:{xs:"20px 0",md:"20px 3.5rem"},padding:{xs:"2rem",sm:"3rem"}}}>
       <Grid size={{xs:12, md:6}} sx={{paddingTop:"2rem"}}>
         <Typography variant="h4" className="purpule-color" 
         sx={{fontWeight:'bold',marginBottom:"3px",letterSpacing:"2px"}}>
@@ -61,7 +61,7 @@ export default function BooksOffers() {
 
 
       </Grid>
-      <Grid size={{xs:12, md:6}}  sx={{paddingTop:"1.5rem",display:"flex",
+      <Grid size={{xs:12, md:6}}  sx={{paddingTop:{xs:"2.5rem",md:"1.5rem"},display:"flex",
     justifyContent:{xs:"center",md:"flex-end"}, alignItems:{xs:"center",md:"flex-end"} }}>
         <img src={booksOffers} alt="booksOffers" style={{width: "100%",maxWidth:"500px",marginLeft:"auto",display:"block"}}/>
       </Grid>

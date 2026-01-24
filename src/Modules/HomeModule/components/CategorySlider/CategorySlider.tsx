@@ -69,7 +69,7 @@ export default function CategorySlider() {
 
   return (
     <>
-     <Box sx={{margin:"3rem 5rem"}}>
+     <Box sx={{margin:{xs:"2rem",md:"3rem 5rem"}}}>
         <Typography variant="h6"  className="line" sx={{color:"#ED553B",fontWeight:"bold",paddingLeft:"60px"}}>
           Categories
         </Typography>
@@ -86,7 +86,7 @@ export default function CategorySlider() {
 
         <Box sx={{ position: "relative", marginX:"5rem" }}>
         {/* Navigation Arrows */}
-        <Box sx={{ position: "absolute", top: "-80px", right: 0, display: "flex", gap: 2 }}>
+        <Box sx={{ position: "absolute", top:{xs:"-110px",sm: "-80px"}, right: {xs:"-40px",sm:0}, display:"flex", gap: 2 }}>
           <div className="category-prev">
             <IconButton>
             {/* <LiaArrowAltCircleLeft className="arrow" style={{ fontSize: "40px", color: "rgba(123, 116, 116, 0.77)"}}/> */}
