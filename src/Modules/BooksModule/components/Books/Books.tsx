@@ -30,6 +30,10 @@ import Checkbox from '@mui/material/Checkbox';
 
 import { useLocation } from 'react-router-dom';
 
+import Drawer from '@mui/material/Drawer';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { useTheme, useMediaQuery } from '@mui/material';
+
 
 interface Book{
   _id: number;
@@ -62,6 +66,14 @@ export default function Books() {
   // state to store category that i selected.
   const [selectedCategories, setSelectedCategories] = useState<string []>([]);
   const [allBooks, setAllBooks] = useState<Book[]>([]);
+
+  // to make filter category in small screen to drawar
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const toggleDrawer = (open: boolean) => {
+    setIsDrawerOpen(open);
+  };
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md')); // أقل من md
 
   // function to getAllCategories 
   const getAllCategories=async()=>{
@@ -187,6 +199,34 @@ export default function Books() {
 
         {/* Filter Accordion  */}
       <Grid size={{xs:12, md:2}} mt={9}>
+
+      {isSmallScreen ? (
+    <>
+      <IconButton onClick={() => toggleDrawer(true)}>
+        <FilterListIcon sx={{ fontSize: "2rem", color: "#393280" }} />
+      </IconButton>
+      <Drawer
+        anchor="left"
+        open={isDrawerOpen}
+        onClose={() => toggleDrawer(false)}
+      >
+        <Box sx={{ width: 250, padding: 2 }}>
+          <Typography sx={{ fontWeight: "bold", mb: 2 }}>Filter By Category</Typography>
+          {categories.map((category) => (
+            <Box key={category._id} display="flex" alignItems="center">
+              <Checkbox
+                checked={selectedCategories.includes(category._id)}
+                onChange={() => handleCategoryChange(category._id)}
+              />
+              <Typography>{category.title}</Typography>
+            </Box>
+          ))}
+        </Box>
+      </Drawer>
+    </>
+  ) : (
+
+
         <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
           <Typography sx={{fontWeight:"bold"}}> Filter By Category</Typography>
@@ -202,6 +242,7 @@ export default function Books() {
           ))}
         </AccordionDetails>
       </Accordion>
+  )}
 
       </Grid>
        
@@ -274,6 +315,9 @@ export default function Books() {
 
        <Grid container spacing={books.length == 2?6:2} direction={isListView ? "column":"row"}>
       {books.map((book)=>{
+
+        console.log("Book",book);
+        
         return(
           <>
           <Grid size={{xs:12, sm:isListView ? 12: 6 , md:isListView ? 12 : 4}} 
@@ -287,7 +331,7 @@ export default function Books() {
               <Box className="image-box" sx={{position:"relative", width:"100%"}}>
                   <CardMedia className='book-image'
                     component="img" 
-                    image={book.image} 
+                    image={`https://upskilling-egypt.com:3007${book.image}`} 
                     alt={book.description} 
                     sx={{ width: "100%",height:"300px",
                     objectFit:"contain", borderRadius:"10px"}}

@@ -3,6 +3,7 @@ import NavBar from '../NavBar/NavBar'
 import Footer from '../Footer/Footer'
 import { Outlet } from 'react-router-dom'
 import Contact from '../Contact/Contact'
+import { Box} from "@mui/material";
 
 export default function MasterLayout() {
   return (
@@ -12,9 +13,9 @@ export default function MasterLayout() {
         <NavBar/>
       </div>
       
-      <div style={{paddingTop:"140px"}}>
+      <Box sx={{paddingTop:"140px"}}>
       <Outlet/>
-      </div>
+      </Box>
       
         
       <Footer/>
