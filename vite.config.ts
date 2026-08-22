@@ -10,6 +10,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      '/uploads': {
+        target: 'https://upskilling-egypt.com:3007',
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 });

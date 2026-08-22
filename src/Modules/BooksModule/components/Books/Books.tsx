@@ -331,7 +331,7 @@ export default function Books() {
               <Box className="image-box" sx={{position:"relative", width:"100%"}}>
                   <CardMedia className='book-image'
                     component="img" 
-                    image={`https://upskilling-egypt.com:3007${book.image}`} 
+                    image={book.image} 
                     alt={book.description} 
                     sx={{ width: "100%",height:"300px",
                     objectFit:"contain", borderRadius:"10px"}}
