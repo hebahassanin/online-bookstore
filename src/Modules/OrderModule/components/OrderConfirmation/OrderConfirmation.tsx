@@ -22,7 +22,7 @@ export default function OrderConfirmation() {
           <Typography variant="h5" sx={{textTransform:"capitalize",fontWeight:"bold"}}>total amount:</Typography>
           <Typography variant="body1" sx={{fontSize: '20px',color:"gray",marginBottom:"20px"}}>{state.totalAmount}</Typography>
 
-          <Button variant="contained" color="primary" 
+          <Button variant="contained" className="orangeLight-bg"
           sx={{width:"100%",letterSpacing:"3px", paddingY:"10px", fontSize:"18px"}} 
           onClick={()=>navigate('/dashboard')}>
             back to home

@@ -103,7 +103,7 @@ export default function BooksSlider() {
           stretch: 0,
           depth: 150,
           modifier: 1.5,
-          slideShadows: true,
+          slideShadows: false,
         }}
         pagination={{
           clickable:true

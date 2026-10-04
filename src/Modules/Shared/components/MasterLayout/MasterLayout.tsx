@@ -4,10 +4,13 @@ import Footer from '../Footer/Footer'
 import { Outlet } from 'react-router-dom'
 import Contact from '../Contact/Contact'
 import { Box} from "@mui/material";
+import ScrollToTop from '../ScrollToTop/ScrollToTop';
 
 export default function MasterLayout() {
   return (
     <>
+
+    <ScrollToTop/>
       <div style={{position:'fixed',top:0, left:0, right:0, zIndex:1000}}>
         <Contact/>
         <NavBar/>

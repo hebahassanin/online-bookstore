@@ -41,7 +41,7 @@ export default function ShowCase() {
   return (
     <>
 
-<Swiper
+      <Swiper
         slidesPerView={1}
         spaceBetween={30}
         loop={true}
@@ -59,50 +59,51 @@ export default function ShowCase() {
         modules={[Autoplay,Pagination, Navigation]}
         className="mySwiper">
 
-  {slides.map((slide,index)=>(
-    <SwiperSlide key={index} className='slider1'>
-    <Grid container direction={{xs:"column", md:"row"}} sx={{mb:2}}>
-      <Grid size={{xs:12, md:6}} sx={{display:"flex", flexDirection:"column", justifyContent:"center",
-        paddingLeft:{xs:"1rem",md:"7rem"},paddingRight:{xs:"1rem",sm:0}}}>
-        <Typography variant='h4' className='purpule-color' sx={{marginTop:{xs:"30px"},
-        fontSize:{xs:"2.3rem",sm:"3.5rem"},fontWeight:"bold",textTransform:"capitalize",
-        letterSpacing:{xs:"2px",sm:"3px"}}} >
-        {slide.text}
-        </Typography>
-        <Typography variant='body1' className='purpule-color' sx={{fontSize:{xs:"1.2rem",sm:"1.5rem"},letterSpacing:"1px",
-        margin:"15px 0", lineHeight:"1.5"}}>
-       {slide.description}
-        </Typography>
-        <Button variant="outlined" className='purpule-color' 
-          sx={{borderColor:"#393280",width:"200px",padding:"10px 0"}}>
-          read more 
-          <ArrowForwardOutlinedIcon sx={{marginLeft:"5px"}}/>
-        </Button>
-      </Grid>
-      <Grid size={{xs:12, md:6}} sx={{display:"flex", justifyContent:{xs:"center", sm:"center", md:"flex-start"},
-       alignItems:{xs:"center", sm:"center", md:"flex-start"},
-       minHeight:{xs:"420px", md:"auto"}}}>
-        <Box component="img" src={slide.img} alt="slideImage" 
-        sx={{width:"100%", height:"auto", maxWidth:{xs:"300px",sm:"250px",md:"300px"}}}/>
-      </Grid>
-    </Grid>
-  </SwiperSlide>
-  ))}
+        {slides.map((slide,index)=>(
+          <SwiperSlide key={index} className='slider1'>
+            <Grid container direction={{xs:"column", md:"row"}} sx={{mb:2}}>
+              <Grid size={{xs:12, md:6}} sx={{display:"flex", flexDirection:"column", justifyContent:"center",
+                paddingLeft:{xs:"1rem",md:"7rem"},paddingRight:{xs:"1rem",sm:0},paddingTop:{xs:"1rem",md:0}}}>
+                <Typography variant='h4' className='purpule-color' sx={{marginTop:{xs:"30px"},
+                fontSize:{xs:"2.3rem",sm:"3.5rem"},fontWeight:"bold",textTransform:"capitalize",
+                letterSpacing:{xs:"2px",sm:"3px"}}} >
+                  {slide.text}
+                </Typography>
+                <Typography variant='body1' className='purpule-color' sx={{fontSize:{xs:"1.2rem",sm:"1.5rem"},letterSpacing:"1px",
+                margin:"15px 0", lineHeight:"1.5"}}>
+                  {slide.description}
+                </Typography>
+                <Button variant="outlined" className='purpule-color' 
+                  sx={{borderColor:"#393280",width:"200px",padding:"12px 0",borderRadius:"6px",fontSize:"1rem",
+                   marginBottom:"4rem", }}>
+                    read more 
+                  <ArrowForwardOutlinedIcon sx={{marginLeft:"5px"}}/>
+                </Button>
+              </Grid>
+              <Grid size={{xs:12, md:6}} sx={{display:"flex", justifyContent:{xs:"center", sm:"center", md:"flex-start"},
+              alignItems:{xs:"center", sm:"center"},
+              minHeight:{xs:"420px", md:"auto"}}}>
+                <Box component="img" src={slide.img} alt="slideImage" 
+                  sx={{width:"100%", height:"auto", maxWidth:{xs:"300px",sm:"250px",md:"300px"}}}/>
+              </Grid>
+            </Grid>
+          </SwiperSlide>
+        ))}
 
          {/* Custom Navigation Buttons */}
             <Box className="custom-prev">
-            <IconButton >
-            <ArrowCircleLeftOutlinedIcon sx={{fontSize:"3rem",color:"#ef6b4a",}}/>
-            </IconButton>
+              <IconButton >
+                <ArrowCircleLeftOutlinedIcon sx={{fontSize:"3rem",color:"#ef6b4a"}}/>
+              </IconButton>
             </Box>
 
             <Box className="custom-next">
-            <IconButton>
-            <ArrowCircleRightOutlinedIcon sx={{fontSize:"3rem",color:"#ef6b4a"}}/>
-            </IconButton>
+              <IconButton>
+                <ArrowCircleRightOutlinedIcon sx={{fontSize:"3rem",color:"#ef6b4a"}}/>
+              </IconButton>
             </Box>
             
-        </Swiper>
+      </Swiper>
 
       
     </>

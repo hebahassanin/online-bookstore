@@ -1,4 +1,4 @@
-import { Box, TextField, Typography,IconButton, InputAdornment } from "@mui/material";
+import { Box, TextField, Typography,IconButton, InputAdornment, CircularProgress } from "@mui/material";
 import {Visibility, VisibilityOff} from '@mui/icons-material'
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +26,7 @@ export default function Login() {
     password: string;
   }
 
-  let { register, handleSubmit, formState: { errors } } = useForm<FormInputs>();
+  let { register, handleSubmit, formState: { errors ,isSubmitting} } = useForm<FormInputs>();
 
   let onSubmit = async(data: FormInputs) => {
     // console.log(data);
@@ -36,6 +36,7 @@ export default function Login() {
       let response = await axios.post("https://upskilling-egypt.com:3007/api/auth/login", data);
       localStorage.setItem("accessToken", response?.data?.data?.accessToken);
       console.log(response?.data?.data?.accessToken);
+      
 
       const userData = response?.data?.data?.profile;
       const token = response?.data?.data?.accessToken;
@@ -54,7 +55,7 @@ export default function Login() {
       }));
 
       
-      toast.success(`logged success, welcome ${userData.first_name}`,{ autoClose: 2000});
+      toast.success(`${response?.data?.message}, welcome ${userData.first_name}`,{ autoClose: 2000});
       navigate("/dashboard");
 
         }catch (error) {
@@ -82,7 +83,7 @@ export default function Login() {
           error={!!errors?.email}
           helperText={errors?.email?.message}
         />
-        <TextField type={showPassword? 'text':'password'} id="password" label="password" 
+        <TextField type={showPassword? 'text':'password'} id="password" label="Password" 
         variant="outlined"
         
          sx={{ width: "100%", marginTop: '15px' , marginBottom:'15px'}} 
@@ -97,8 +98,7 @@ export default function Login() {
                 <IconButton
                   onClick={() => setShowPassword(!showPassword)}
                   edge="end"
-                  aria-label={showPassword ? 'Hide password' : 'Show password'}
-                >
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}>
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
@@ -121,14 +121,20 @@ export default function Login() {
         <Stack spacing={1.5}>
           <Stack>
             <Button type="submit" variant="contained" fullWidth className="orangeLight-bg"
-            sx={{padding:"10px 0"}}>
-              Login
+            sx={{padding:"10px 0",fontSize:"16px"}} disabled={isSubmitting}>
+              {isSubmitting ? 
+                <>
+                  <span>Logging in...</span>
+                  <CircularProgress size={20} sx={{color: '#fff'}}  thickness={5}/>
+                </>
+                  : 'Login'}
+
             </Button>
           </Stack>
 
           <Stack>
             <Button onClick={()=> navigate('/register')} 
-            variant="outlined" sx={{padding:"10px 0"}}>
+            variant="outlined" sx={{padding:"10px 0",fontSize:"16px"}}>
               Register
             </Button>
           </Stack>

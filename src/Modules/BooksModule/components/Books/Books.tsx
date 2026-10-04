@@ -33,6 +33,7 @@ import { useLocation } from 'react-router-dom';
 import Drawer from '@mui/material/Drawer';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { useTheme, useMediaQuery } from '@mui/material';
+import { motion } from 'motion/react';
 
 
 interface Book{
@@ -323,7 +324,10 @@ export default function Books() {
           <Grid size={{xs:12, sm:isListView ? 12: 6 , md:isListView ? 12 : 4}} 
           sx={{marginBottom:"2rem", paddingLeft: 0,
            marginLeft: books.length == 1  || books.length==2? "130px":0 }}  key={book._id}>
-            <Box display="flex" flexDirection={isListView ? "row" : "column"} 
+            <Box component={motion.div} initial={{ opacity: 0, y: 20 }} 
+            whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true ,amount: 0.2 }} 
+            transition={{ duration: 0.8, ease: "easeOut" }} 
+            display="flex" flexDirection={isListView ? "row" : "column"} 
             alignItems="center" 
             gap={isListView ? 4 :2}>
               <Card sx={{ width: isListView ? "40%":"280px", bgcolor:"transparent",
@@ -355,9 +359,17 @@ export default function Books() {
                      $ {book.price}
                 </Typography>
 
-                <Button variant="outlined" className="purpule-color"    
-                sx={{margin:"10px auto",width:"150px"
-                ,padding:"10px 0",borderColor:"#393280"}}
+              <Button variant="outlined"    
+                sx={{margin:"10px auto"
+                ,padding:"15px 20px",borderColor:"#393280",color:"#393280",borderRadius:"8px",
+                fontWeight:"bold",fontSize:{xs:"13px",sm:"16px"},
+                "&:hover": {
+                  backgroundColor: "#393280",
+                  color: "#fff",
+                  borderColor: "#393280",
+                  },
+                
+                }}
                 onClick={()=>navigate(`/dashboard/books/${book._id}`)}>
                   view details 
                   <ArrowRightAltOutlinedIcon/>
@@ -379,5 +391,3 @@ export default function Books() {
     </>
   )
 }
-
-// ()=> dispatch(addItemToCart({bookId:String(book._id), quantity:1}))

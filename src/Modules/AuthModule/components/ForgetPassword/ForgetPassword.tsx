@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@mui/material";
+import { CircularProgress, TextField, Typography } from "@mui/material";
 import Box from "@mui/material/Grid";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -14,7 +14,7 @@ export default function ForgetPassword() {
     password?: string;
   }
 
-  let {register, handleSubmit, formState:{errors}}= useForm<FormInputs>();
+  let {register, handleSubmit, formState:{errors, isSubmitting}}= useForm<FormInputs>();
 
   let onSubmit=async(data:FormInputs)=>{
    try {
@@ -24,14 +24,10 @@ export default function ForgetPassword() {
 
     
    } catch (error) {
-    console.log(error);
-    
-    
+    console.log(error);    
    }
-    
 
   }
-
 
   return (
     <>
@@ -54,7 +50,15 @@ export default function ForgetPassword() {
 
       <Stack marginTop={3}>
         <Stack>
-        <Button type="submit" variant="outlined" fullWidth sx={{padding:"10px 0"}}>Send</Button>
+        <Button type="submit" variant="contained" fullWidth className="orangeLight-bg"
+        sx={{padding:"10px 0",fontSize:"16px"}} disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <span>Sending...</span>
+              <CircularProgress size={20} sx={{color: '#fff'}}  thickness={5}/>
+            </>
+          ) : 'Send'}
+        </Button>
         </Stack>
 
       </Stack>

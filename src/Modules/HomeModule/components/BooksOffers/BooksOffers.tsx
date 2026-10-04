@@ -1,6 +1,7 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import { motion } from "motion/react";
 
 import booksOffers from '../../../../assets/images/home/books offers.png';
 
@@ -8,63 +9,75 @@ export default function BooksOffers() {
   return (
     <>
       <Grid container sx={{backgroundColor:"#FCEBEA",margin:{xs:"20px 0",md:"20px 3.5rem"},padding:{xs:"2rem",sm:"3rem"}}}>
-      <Grid size={{xs:12, md:6}} sx={{paddingTop:"2rem"}}>
-        <Typography variant="h4" className="purpule-color" 
-        sx={{fontWeight:'bold',marginBottom:"3px",letterSpacing:"2px"}}>
-        All books are 50% off now!
-        </Typography>
-        <Typography variant="h4" className="purpule-color" 
-        sx={{fontWeight:'bold',letterSpacing:"2px"}}>
-        Don't miss such a deal!
-        </Typography>
+      
+      {/* <motion.div
+       */}
 
-        <Typography variant="body1" className="purpule-color" 
-        sx={{fontSize:"16px",letterSpacing:"2px",lineHeight:"2",margin:"15px 0"}}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        <br/>Sed eu feugiat amet, libero ipsum enim pharetra hac.
-        </Typography>
+        <Grid component={motion.div} initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }} transition={{ duration: 1, ease: "easeOut" }} 
+          size={{xs:12, md:6}} sx={{paddingTop:"2rem"}}>
+          <Typography variant="h4" className="purpule-color" 
+          sx={{fontWeight:'bold',marginBottom:"3px",letterSpacing:"2px"}}>
+          All books are 50% off now!
+          </Typography>
+          <Typography variant="h4" className="purpule-color" 
+          sx={{fontWeight:'bold',letterSpacing:"2px"}}>
+          Don't miss such a deal!
+          </Typography>
 
-        <Stack direction="row" spacing={4} alignItems="center" sx={{}}>
-          <Stack direction="column" alignItems="center" spacing={0.5}>
-            <Typography variant="h6" className="orangeBold-text" sx={{fontWeight:"bold"}}>768</Typography>
-            <Typography variant="body2" fontWeight="500" 
-            sx={{letterSpacing:"3px",textTransform:"uppercase"}}>
-              Days
+          <Typography variant="body1" className="purpule-color" 
+          sx={{fontSize:"16px",letterSpacing:"2px",lineHeight:"2",margin:"15px 0"}}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <br/>Sed eu feugiat amet, libero ipsum enim pharetra hac.
+          </Typography>
+
+          <Stack direction="row" spacing={4} alignItems="center" sx={{}}>
+            <Stack direction="column" alignItems="center" spacing={0.5}>
+              <Typography variant="h6" className="orangeBold-text" sx={{fontWeight:"bold"}}>768</Typography>
+              <Typography variant="body2" fontWeight="500" 
+              sx={{letterSpacing:"3px",textTransform:"uppercase"}}>
+                Days
+              </Typography>
+            </Stack>
+
+            <Stack direction="column" alignItems="center" spacing={0.5}>
+            <Typography variant="h6" className="orangeBold-text" sx={{fontWeight:"bold"}}>01</Typography>
+              <Typography variant="body2" fontWeight="500" 
+              sx={{letterSpacing:"3px",textTransform:"uppercase"}}>
+                Hour
             </Typography>
+            </Stack>
+
+            <Stack direction="column" alignItems="center" spacing={0.5}>
+            <Typography variant="h6" className="orangeBold-text" sx={{fontWeight:"bold"}}>27</Typography>
+              <Typography variant="body2" fontWeight="500" 
+              sx={{letterSpacing:"3px",textTransform:"uppercase"}}>
+                Mint
+            </Typography>
+            </Stack>
+
+            <Stack direction="column" alignItems="center" spacing={0.5}>
+            <Typography variant="h6" className="orangeBold-text" sx={{fontWeight:"bold"}}>55</Typography>
+              <Typography variant="body2" fontWeight="500" 
+              sx={{letterSpacing:"3px",textTransform:"uppercase"}}>
+                Sec
+            </Typography>
+            </Stack>
+
           </Stack>
-
-          <Stack direction="column" alignItems="center" spacing={0.5}>
-          <Typography variant="h6" className="orangeBold-text" sx={{fontWeight:"bold"}}>01</Typography>
-            <Typography variant="body2" fontWeight="500" 
-            sx={{letterSpacing:"3px",textTransform:"uppercase"}}>
-              Hour
-          </Typography>
-          </Stack>
-
-          <Stack direction="column" alignItems="center" spacing={0.5}>
-          <Typography variant="h6" className="orangeBold-text" sx={{fontWeight:"bold"}}>27</Typography>
-            <Typography variant="body2" fontWeight="500" 
-            sx={{letterSpacing:"3px",textTransform:"uppercase"}}>
-              Mint
-          </Typography>
-          </Stack>
-
-          <Stack direction="column" alignItems="center" spacing={0.5}>
-          <Typography variant="h6" className="orangeBold-text" sx={{fontWeight:"bold"}}>55</Typography>
-            <Typography variant="body2" fontWeight="500" 
-            sx={{letterSpacing:"3px",textTransform:"uppercase"}}>
-              Sec
-          </Typography>
-          </Stack>
-
-        </Stack>
+        </Grid>
 
 
+      <Grid component={motion.div} initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }} transition={{ duration: 1, ease: "easeOut" }} 
+        size={{xs:12, md:6}}  sx={{paddingTop:{xs:"2.5rem",md:"1.5rem"},display:"flex",
+        justifyContent:{xs:"center",md:"flex-end"}, alignItems:{xs:"center",md:"flex-end"} }}>
+        <img src={booksOffers} alt="booksOffers" style={{width: "100%",maxWidth:"500px",
+          marginLeft:"auto",display:"block"}}/>
       </Grid>
-      <Grid size={{xs:12, md:6}}  sx={{paddingTop:{xs:"2.5rem",md:"1.5rem"},display:"flex",
-    justifyContent:{xs:"center",md:"flex-end"}, alignItems:{xs:"center",md:"flex-end"} }}>
-        <img src={booksOffers} alt="booksOffers" style={{width: "100%",maxWidth:"500px",marginLeft:"auto",display:"block"}}/>
-      </Grid>
+
     </Grid>
     </>
   )

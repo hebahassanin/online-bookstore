@@ -35,13 +35,13 @@ import { FadeLoader } from "react-spinners";
 
 // import { LiaArrowAltCircleLeft, LiaArrowAltCircleRight } from 'react-icons/lia';
 
-interface category{
+interface Category{
   _id:string;
   title:string;
 }
 
 export default function CategorySlider() {
-  const [categories, setCategories] = useState<category []>([]);
+  const [categories, setCategories] = useState<Category []>([]);
   const [loading, setLoading]= useState(true);
   const navigate =useNavigate();
 
@@ -69,8 +69,9 @@ export default function CategorySlider() {
 
   return (
     <>
-     <Box sx={{margin:{xs:"2rem",md:"3rem 5rem"}}}>
-        <Typography variant="h6"  className="line" sx={{color:"#ED553B",fontWeight:"bold",paddingLeft:"60px"}}>
+      <Box sx={{margin:{xs:"2rem",md:"3rem 5rem"}}}>
+        <Typography variant="h6"  className="line" sx={{color:"#ED553B",fontWeight:"bold",
+          paddingLeft:"60px",letterSpacing:"1px",}}>
           Categories
         </Typography>
         <Typography variant="h5" className="purpule-color" sx={{fontWeight:"bold",margin: "10px 0"}}>
@@ -84,20 +85,19 @@ export default function CategorySlider() {
         </Box>
       ):(   
 
-        <Box sx={{ position: "relative", marginX:"5rem" }}>
+      <Box sx={{ position: "relative", marginX:"5rem" }}>
+
         {/* Navigation Arrows */}
         <Box sx={{ position: "absolute", top:{xs:"-110px",sm: "-80px"}, right: {xs:"-40px",sm:0}, display:"flex", gap: 2 }}>
           <div className="category-prev">
             <IconButton>
-            {/* <LiaArrowAltCircleLeft className="arrow" style={{ fontSize: "40px", color: "rgba(123, 116, 116, 0.77)"}}/> */}
-        
-            <ArrowBackIosNewIcon className="arrow" sx={{ fontSize: 30, color: "rgba(123, 116, 116, 0.77)" }} />
+              <ArrowBackIosNewIcon className="arrow" sx={{ fontSize: 30, color: "rgba(123, 116, 116, 0.77)" }} />
             </IconButton>
           </div>
+
           <div className="category-next">
-          <IconButton>
-          {/* <LiaArrowAltCircleRight className="arrow" style={{ fontSize: "40px", color: "rgba(123, 116, 116, 0.77)"}}/> */}
-            <ArrowForwardIosIcon className="arrow" sx={{ fontSize: 30, color: "rgba(123, 116, 116, 0.77)" }} />
+            <IconButton>
+              <ArrowForwardIosIcon className="arrow" sx={{ fontSize: 30, color: "rgba(123, 116, 116, 0.77)" }} />
             </IconButton>
           </div>
         </Box>
@@ -122,20 +122,24 @@ export default function CategorySlider() {
           }}
           className="categorySwiper">
 
-          {categories.map((cat, index)=>{
+          {categories.map((category, index)=>{
             const img = Images[index % Images.length];
             return(
-              <SwiperSlide className="slider2" key={cat._id}>
-                <Card sx={{ width:"100%", border:"none", boxShadow:"none", bgcolor:"transparent" }}>
+              <SwiperSlide className="slider2" key={category._id}>
+                <Card sx={{ width:"100%", border:"none", boxShadow:"none", bgcolor:"transparent",
+                  borderRadius:"20px",overflow:"hidden",  
+                  }} 
+                   onClick={()=> navigate(`/dashboard/books?category=${category._id}`)}>
                   <CardMedia 
                     component="img" 
                     image={img} 
-                    alt={cat.title} 
-                    sx={{ width:"100%", height:"80%", objectFit:"cover", borderRadius:"10px" }}
+                    alt={category.title} 
+                    sx={{  objectFit:"cover",height:"200px", }}
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h6" textAlign="center">
-                      {cat.title}
+                    <Typography gutterBottom variant="h6" sx={{textTransform:"capitalize"}} 
+                     textAlign="center">
+                      {category.title}
                     </Typography>
                   </CardContent>
                 </Card>
@@ -148,13 +152,21 @@ export default function CategorySlider() {
 
      
       <Button variant="outlined" className="purpule-color" 
-        sx={{margin:"20px auto",width:"200px", display:"flex",    
+        sx={{margin:"30px auto",width:"200px", display:"flex",    
         alignItems: "center",   
         justifyContent: "center", 
-        gap: "8",   
-        padding:"12px 0",borderColor:"#393280"}}
+        gap: "8px",   
+        padding:"15px 20px",borderColor:"#393280",borderRadius:"5px",fontSize:"1rem",
+        letterSpacing:"1px",
+        "&:hover": {
+        backgroundColor: "#393280",
+        color: "white !important",
+        borderColor: "#393280",
+    },
+      
+      }}
         onClick={()=>navigate("/dashboard/categories")}>
-          View More <ArrowRightAltOutlinedIcon/>
+          View More <ArrowRightAltOutlinedIcon sx={{fontSize:"30px"}} />
       </Button>
 
     </>

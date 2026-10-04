@@ -49,6 +49,7 @@
     color:  var(--light-orange);
 }
 
+
 /* CategorySlider */
 .line{
     position: relative;
@@ -61,12 +62,11 @@
     height:3px;
     left: 0;
     top: 16px;
-
     background-color: #ef6b4a;
   }
 
 /* slider2 in home */
-.categorySwiper {
+  .categorySwiper {
     background: transparent !important;
   }
   
@@ -76,19 +76,30 @@
   }
   .swiper-slide.slider2{
     cursor: pointer;
+    transition: transform 0.3s ease;
+    margin-top: 8px;
+    overflow: hidden;
+    
   }
   .swiper-slide.slider2 img{
     height: 200px;
     width:100%;
   }
-  .swiper-slide.slider2:hover{
-    background-color: rgb(243, 237, 237);
 
+  .swiper-slide.slider2:hover{
+    background-color: #f7f7f7;
+    border: 1px solid #dad8d8;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transform: translateY(-7px);
   }
+  
   .arrow:hover{
     color:var(--bold-orange);
 
   }
+
+
   
   /* slider3 */
   .BooksSlider{
@@ -133,7 +144,7 @@
     height: fit-content;
     padding: 10px!important;
     transform: translate(-50%, -50%);
-    background-color: #ED553B !important; /* برتقالي */
+    background-color: #ED553B !important; 
     /* font-size: 25px !important; */
     font-weight: 700!important;
     color: white !important;

@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@mui/material";
+import { CircularProgress, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
 import Box from "@mui/material/Grid";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -8,17 +8,20 @@ import { useNavigate } from "react-router-dom";
 import Grid  from '@mui/material/Grid';
 import Checkbox from '@mui/material/Checkbox';
 import { toast } from "react-toastify";
+import { useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function ResetPassword() {
 
   const navigate= useNavigate();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   interface FormInputs {
     email: string;
     password: string;
     otp:string;
   }
-  let {register,handleSubmit,formState:{errors}}=useForm<FormInputs>();
+  let {register,handleSubmit,formState:{errors, isSubmitting}}=useForm<FormInputs>();
 
   let onSubmit=async(data:FormInputs)=>{
 
@@ -34,8 +37,6 @@ export default function ResetPassword() {
       
       
     }
-   
-    
 
   }
 
@@ -63,11 +64,25 @@ export default function ResetPassword() {
           error={!!errors?.otp}
           helperText={errors?.otp?.message}
         />
-        <TextField type="password" id="password" label="password" 
+        <TextField type={showPassword ? 'text' : 'password'} id="password" label="password" 
         variant="outlined" sx={{ width: "100%", marginTop: '15px' , marginBottom:'15px'}} 
         {...register("password",{required:"password is required"})}
         error={!!errors?.password}
         helperText={errors?.password?.message}
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}>
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            )
+          }
+        }}
         />
 
         <Grid container sx={{justifyContent:"space-between"}}>
@@ -81,14 +96,19 @@ export default function ResetPassword() {
         <Stack spacing={1.5}>
           <Stack>
             <Button type="submit" variant="contained" fullWidth className="orangeLight-bg"
-            sx={{padding:"10px 0"}}>
-              Reset
+            sx={{padding:"10px 0",fontSize:"16px"}} disabled={isSubmitting}>
+              {isSubmitting ? (
+                <>
+                  <span>Resetting...</span>
+                  <CircularProgress size={20} sx={{color: '#fff'}}  thickness={5}/>
+                </>
+              ) : 'Reset'}
             </Button>
           </Stack>
 
           <Stack>
             <Button onClick={()=> navigate('/')} 
-            variant="outlined" sx={{padding:"10px 0"}}>
+            variant="outlined" sx={{padding:"10px 0",fontSize:"16px"}}>
               Login
             </Button>
           </Stack>

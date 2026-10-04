@@ -16,7 +16,9 @@ import slider2Img6 from '../../../../assets/images/slider2/slider2-img6.jpg';
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
-interface category{
+import {motion} from "motion/react";
+
+interface Category{
   _id:string;
   title:string;
 }
@@ -26,12 +28,12 @@ export default function Categories() {
 
   const Images=[slider2Img1,slider2Img2,slider2Img3,slider2Img4,slider2Img5,slider2Img6];
 
-  const [categories, setCategories]= useState<category []>([]);
+  const [categories, setCategories]= useState<Category []>([]);
   const [loading, setLoading]= useState(true);
   const navigate= useNavigate();
   
 
-  const getAllCategories=async()=>{
+  const getAllCategories = async()=>{
     try {
       setLoading(true);
       const response = await axios.get("https://upskilling-egypt.com:3007/api/category");
@@ -59,29 +61,41 @@ export default function Categories() {
           <FadeLoader  color="#393280" width={7} height={20}/>
         </Box>
       ):(   
-    <Grid container spacing={2} sx={{margin:"20px 10px 10px 3rem"}}>
-    {categories.map((category, index)=>{
-            const img = Images[index % Images.length];
-            return(
-              <Grid size={{xs:12,sm:6,md:4}} sx={{marginBottom:"2rem",marginTop:{xs:"2rem",sm:0}}} key={category._id}>
-              <Card sx={{ width:"80%", bgcolor:"transparent",cursor:"pointer"}} elevation={5} 
-              onClick={()=> navigate(`/dashboard/books?category=${category._id}`)}>
-                  <CardMedia 
-                    component="img" 
-                    image={img} 
-                    alt={category.title} 
-                    sx={{ width:"100%", minHeight:"60%", objectFit:"cover", borderRadius:"10px" }}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h6" textAlign="center">
-                      {category.title}
-                    </Typography>
-                  </CardContent>
-                </Card>
-                </Grid>
-                  )
-                })}
-    </Grid>
+      <Grid container spacing={2} sx={{margin:"20px 10px 10px 3rem"}}>
+      {categories.map((category, index)=>{
+              const img = Images[index % Images.length];
+              return(
+                <Grid size={{xs:12,sm:6,md:4}} sx={{marginBottom:"2rem",marginTop:{xs:"2rem",sm:0}}} 
+                key={category._id}>
+                  <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }} transition={{ duration: 0.8, ease: "easeOut" }}>
+                <Card sx={{ width:"80%",boxShadow:"none",cursor:"pointer",border:"1px solid #dad8d8",
+                  borderRadius:"20px",overflow:"hidden",transition:"transform 0.3s ease, box-shadow 0.3s ease",
+                  "&:hover":{
+                    boxShadow:"0 10px 25px rgba(0, 0, 0, 0.08)",
+                    transform:"translateY(-7px)",
+
+                  }
+                }}
+                onClick={()=> navigate(`/dashboard/books?category=${category._id}`)}>
+                    <CardMedia 
+                      component="img" 
+                      image={img} 
+                      alt={category.title} 
+                      sx={{ width:"100%", minHeight:"60%", objectFit:"cover", }}
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h6" textAlign="center" 
+                      sx={{textTransform:"capitalize",margin:"10px 0",}}>
+                        {category.title}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                  </motion.div>
+                  </Grid>
+                    )
+                  })}
+      </Grid>
       )}
       
     </>

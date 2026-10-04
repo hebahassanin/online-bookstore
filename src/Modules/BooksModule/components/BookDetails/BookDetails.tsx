@@ -102,13 +102,30 @@ export default function BookDetails() {
               $ {book.price}
           </Typography>
           <Box sx={{marginY:"20px"}}>
-          <Button  variant="contained" className="orangeBold-bg" 
+          <Button  variant="contained" 
           onClick={()=> handleAddToCart(book)} 
-          sx={{padding:"10px 20px",marginRight:"4rem", fontSize:"20px"}}>
+          sx={{padding:"10px 20px",marginRight:"4rem",backgroundColor:"#ED553B",
+             border: "1px solid #ED553B",color: "#fff", fontSize:"20px",
+             borderRadius:"8px",
+            "&:hover": {
+                  backgroundColor: "#fff",
+                  color: "#ED553B",
+                  borderColor: "#ED553B",
+                  boxShadow: "none",
+          },
+          }}>
             Add To Cart
           </Button>
-          <Button  variant="outlined" className="purpule-color"
-          sx={{padding:"10px 20px",borderColor:"#393280", fontSize:"20px"}} onClick={()=> navigate("/dashboard/books")}>
+          <Button  variant="outlined"
+          sx={{padding:"10px 20px",borderColor:"#393280",color:"#393280", fontSize:"20px"
+            ,borderRadius:"8px",
+            "&:hover": {
+                  backgroundColor: "#393280",
+                  color: "#fff",
+                  borderColor: "#393280",
+                  },
+          }} 
+          onClick={()=> navigate("/dashboard/books")}>
             Back To Books</Button>
 
           </Box>

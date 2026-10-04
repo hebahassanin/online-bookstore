@@ -1,20 +1,24 @@
-import { Box, TextField, Typography } from "@mui/material";
-import { useForm,Controller } from "react-hook-form";
+import { Box, TextField, Typography,IconButton, InputAdornment, CircularProgress } from "@mui/material";
+import { useForm} from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import FormHelperText from "@mui/material/FormHelperText";
+// import InputLabel from '@mui/material/InputLabel';
+// import MenuItem from '@mui/material/MenuItem';
+// import FormControl from '@mui/material/FormControl';
+// import Select from '@mui/material/Select';
+// import FormHelperText from "@mui/material/FormHelperText";
+import { useState } from "react";
+import {Visibility, VisibilityOff} from '@mui/icons-material';
 
 
 
 export default function Register() {
+
   const navigate= useNavigate();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   interface FormInputs {
     first_name: string;
@@ -24,7 +28,7 @@ export default function Register() {
     role: string;
   }
 
-  let{register, handleSubmit,control, formState:{errors}}=useForm<FormInputs>();
+  let{register, handleSubmit, formState:{errors, isSubmitting}}=useForm<FormInputs>();
 
   let onSubmit=async(data:FormInputs)=>{
     console.log(data);
@@ -74,10 +78,26 @@ export default function Register() {
         error={!!errors?.email}
         helperText={errors?.email?.message}
         />
-        <TextField type="password" id="password" label="password" variant="outlined" fullWidth 
+        <TextField type={showPassword? 'text':'password'} id="password" label="password" 
+        variant="outlined" fullWidth sx={{marginBottom:"15px"}}
          {...register("password", { required: "password is required" })}
          error={!!errors?.password}
          helperText={errors?.password?.message}
+
+          slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}>
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            )
+          }
+        }}
         />
 
         {/* <FormControl
@@ -96,11 +116,11 @@ export default function Register() {
           <FormHelperText>{errors.role?.message}</FormHelperText>
         </FormControl> */}
 
-      <FormControl
+      {/* <FormControl
           fullWidth
           error={!!errors.role}
-          sx={{ marginTop: "15px" }}
-        >
+          sx={{ marginTop: "15px" , marginBottom:'15px'}}>
+
           <InputLabel id="role-select-label">Role</InputLabel>
           <Controller
             name="role"
@@ -115,19 +135,25 @@ export default function Register() {
             )}
           />
           <FormHelperText>{errors.role?.message}</FormHelperText>
-        </FormControl>
+        </FormControl> */}
 
         <Stack spacing={1.5}>
           <Stack>
             <Button type="submit" variant="contained" className="orangeLight-bg"
-            sx={{padding:"10px 0"}}>
-              Register
+            sx={{padding:"10px 0",fontSize:"16px"}} disabled={isSubmitting}>
+              {isSubmitting ? 
+                <>
+                  <span>Registering...</span>
+                  <CircularProgress size={20} sx={{color: '#fff'}}  thickness={5}/>
+                </>
+                  : 'Register'}
+             
             </Button>
           </Stack>
 
           <Stack>
             <Button onClick={()=> navigate('/')} variant="outlined"
-            sx={{padding:"10px 0"}}>
+            sx={{padding:"10px 0",fontSize:"16px"}}>
               Login
             </Button>
           </Stack>
