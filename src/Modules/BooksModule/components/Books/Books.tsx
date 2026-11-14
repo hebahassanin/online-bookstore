@@ -116,9 +116,11 @@ export default function Books() {
   const handleSortByName =()=>{
     const sortedBooks = [...books].sort((a,b)=>{
       if(sortByNameAsc){
-        return a.name.localeCompare(b.name);
+        return a.name.localeCompare(b.name, undefined, 
+          {numeric:true, sensitivity: 'base' });
       } else {
-        return b.name.localeCompare(a.name);
+        return b.name.localeCompare(a.name, undefined, 
+          {numeric:true, sensitivity: 'base' });
       }
     });
 
@@ -127,7 +129,7 @@ export default function Books() {
   }
 
   // To make Sort by price
-  const[sortByPriceAsc, setSortByPriceAsc]=useState(true);
+  const [sortByPriceAsc, setSortByPriceAsc] = useState(true);
   const handleSortByPrice =()=>{
     const sortedBooks = [...books].sort((a,b)=>{
       if(sortByPriceAsc){
@@ -187,6 +189,7 @@ export default function Books() {
 
       
     },[categoryId, allBooks]);
+
   return (
     <>
     {loading ? (

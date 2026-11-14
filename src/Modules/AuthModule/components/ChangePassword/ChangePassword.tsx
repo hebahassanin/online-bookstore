@@ -28,7 +28,7 @@ export default function ChangePassword() {
   try {
     // await axios.post("https://upskilling-egypt.com:3007/api/auth/change-passwordword",data);
     await axios.post(
-      "https://upskilling-egypt.com:3007/api/auth/change-passwordword",
+      "https://upskilling-egypt.com:3007/api/auth/change-password",
       data,
       {
         headers: {

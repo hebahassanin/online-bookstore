@@ -51,7 +51,7 @@ export default function Register() {
     <>
       <Box mb={4} mt={4} textAlign="start">
         <Typography variant="body1" color="textSecondary">
-          Create new acccount
+          Create new account
         </Typography>
         <Typography variant="h4">
          Register
@@ -60,16 +60,16 @@ export default function Register() {
 
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <Stack direction="row" spacing={2}>
-        <TextField type="text" id="first_name" label="First Name" variant="outlined"
-        {...register("first_name", { required: "first_name is required" })}
-        error={!!errors?.first_name}
-        helperText={errors?.first_name?.message}
-        />
-        <TextField type="text" id="last_name" label="Last Name" variant="outlined" 
-         {...register("last_name", { required: "last_name is required" })}
-         error={!!errors?.last_name}
-         helperText={errors?.last_name?.message}
-        />
+          <TextField type="text" id="first_name" label="First Name" variant="outlined"
+          {...register("first_name", { required: "first_name is required" })}
+          error={!!errors?.first_name}
+          helperText={errors?.first_name?.message}
+          />
+          <TextField type="text" id="last_name" label="Last Name" variant="outlined" 
+          {...register("last_name", { required: "last_name is required" })}
+          error={!!errors?.last_name}
+          helperText={errors?.last_name?.message}
+          />
         </Stack>
 
         <TextField type="email" id="email" label="Email" 
@@ -97,45 +97,7 @@ export default function Register() {
               </InputAdornment>
             )
           }
-        }}
-        />
-
-        {/* <FormControl
-          fullWidth
-          error={!!errors.role}
-          sx={{ marginTop: "15px" }}>
-          <InputLabel id="role-select-label">Role</InputLabel>
-          <Select
-            labelId="role-select-label"
-            defaultValue=""
-            {...register("role", { required: "Role is required" })}
-          >
-            <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="customer">Customer</MenuItem>
-          </Select>
-          <FormHelperText>{errors.role?.message}</FormHelperText>
-        </FormControl> */}
-
-      {/* <FormControl
-          fullWidth
-          error={!!errors.role}
-          sx={{ marginTop: "15px" , marginBottom:'15px'}}>
-
-          <InputLabel id="role-select-label">Role</InputLabel>
-          <Controller
-            name="role"
-            control={control}
-            rules={{ required: "Role is required" }}
-            defaultValue=""
-            render={({ field }) => (
-              <Select {...field} labelId="role-select-label">
-                <MenuItem value="Admin">Admin</MenuItem>
-                <MenuItem value="Customer">Customer</MenuItem>
-              </Select>
-            )}
-          />
-          <FormHelperText>{errors.role?.message}</FormHelperText>
-        </FormControl> */}
+        }}/>
 
         <Stack spacing={1.5}>
           <Stack>
