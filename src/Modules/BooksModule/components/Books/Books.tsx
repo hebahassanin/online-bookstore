@@ -204,49 +204,49 @@ export default function Books() {
         {/* Filter Accordion  */}
       <Grid size={{xs:12, md:2}} mt={9}>
 
-      {isSmallScreen ? (
-    <>
-      <IconButton onClick={() => toggleDrawer(true)}>
-        <FilterListIcon sx={{ fontSize: "2rem", color: "#393280" }} />
-      </IconButton>
-      <Drawer
-        anchor="left"
-        open={isDrawerOpen}
-        onClose={() => toggleDrawer(false)}
-      >
-        <Box sx={{ width: 250, padding: 2 }}>
-          <Typography sx={{ fontWeight: "bold", mb: 2 }}>Filter By Category</Typography>
-          {categories.map((category) => (
-            <Box key={category._id} display="flex" alignItems="center">
-              <Checkbox
-                checked={selectedCategories.includes(category._id)}
-                onChange={() => handleCategoryChange(category._id)}
-              />
-              <Typography>{category.title}</Typography>
-            </Box>
-          ))}
-        </Box>
-      </Drawer>
-    </>
-  ) : (
+        {/* Filter by category for small screen and large screen */}
+        {/* For small screens, we use a Drawer component .For larger screens, we use an Accordion component.*/}
+        {isSmallScreen ? (
+          <>
+            <IconButton onClick={() => toggleDrawer(true)}>
+              <FilterListIcon sx={{ fontSize: "2rem", color: "#393280" }} />
+            </IconButton>
+            <Drawer
+              anchor="left"
+              open={isDrawerOpen}
+              onClose={() => toggleDrawer(false)}>
 
-
+              <Box sx={{ width: 250, padding: 2 }}>
+                <Typography sx={{ fontWeight: "bold", mb: 2 }}>Filter By Category</Typography>
+                {categories.map((category) => (
+                  <Box key={category._id} display="flex" alignItems="center">
+                    <Checkbox
+                      checked={selectedCategories.includes(category._id)}
+                      onChange={() => handleCategoryChange(category._id)}
+                    />
+                    <Typography>{category.title}</Typography>
+                  </Box>
+                ))}
+              </Box>
+            </Drawer>
+          </>
+       ) : (
         <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
-          <Typography sx={{fontWeight:"bold"}}> Filter By Category</Typography>
-        </AccordionSummary>
+          <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
+            <Typography sx={{fontWeight:"bold"}}> Filter By Category</Typography>
+          </AccordionSummary>
 
-        <AccordionDetails sx={{maxHeight:"350px", overflow:"auto"}}>
-          {categories.map((category)=>(
-            <Box key={category._id} display="flex" alignItems="center">
-              <Checkbox checked={selectedCategories.includes(category._id)} 
-              onChange={()=> handleCategoryChange(category._id)}/>
-              <Typography>{category.title}</Typography>
-            </Box>
-          ))}
-        </AccordionDetails>
-      </Accordion>
-  )}
+          <AccordionDetails sx={{maxHeight:"350px", overflow:"auto"}}>
+            {categories.map((category)=>(
+              <Box key={category._id} display="flex" alignItems="center">
+                <Checkbox checked={selectedCategories.includes(category._id)} 
+                onChange={()=> handleCategoryChange(category._id)}/>
+                <Typography>{category.title}</Typography>
+              </Box>
+            ))}
+          </AccordionDetails>
+        </Accordion>
+       )}
 
       </Grid>
        
@@ -338,7 +338,7 @@ export default function Books() {
               <Box className="image-box" sx={{position:"relative", width:"100%"}}>
                   <CardMedia className='book-image'
                     component="img" 
-                    image={book.image} 
+                    image={`https://upskilling-egypt.com:3007/${book.image}`}
                     alt={book.description} 
                     sx={{ width: "100%",height:"300px",
                     objectFit:"contain", borderRadius:"10px"}}
