@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/uploads/:path*",
+      "destination": "https://upskilling-egypt.com:3007/uploads/:path*"
+    }
+  ]
+}
